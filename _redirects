@@ -1,0 +1,20 @@
+# Redirections 301 — Cloudflare Pages
+# Format : /ancienne-url  /nouvelle-url  301
+# À compléter avec l'export Search Console avant la bascule du domaine.
+# Tant que le site est en une seule page, les anciennes URL pointent vers les ancres.
+
+/ventilateurs              /#offre       301
+/ventilateur-gamme         /#offre       301
+/ventilateur-sur-mesure    /#offre       301
+/caissons-insonorises      /#offre       301
+/purificateur-air          /#offre       301
+/nos-autres-accessoires    /#offre       301
+/bureau-etudes             /#methode     301
+/secteurs-activite         /#secteurs    301
+/competences               /#methode     301
+/qui-sommes-nous           /#methode     301
+/calculs                   /#selecteur   301
+/outils                    /#selecteur   301
+/contact                   /#contact     301
+/actualites                /             301
+/telechargement            /             301

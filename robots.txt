@@ -1,0 +1,6 @@
+# Autoriser tous les robots, y compris les crawlers des moteurs IA (GEO)
+User-agent: *
+Allow: /
+
+# À activer à la mise en production sur le domaine définitif :
+# Sitemap: https://www.euroventilatori.fr/sitemap.xml
