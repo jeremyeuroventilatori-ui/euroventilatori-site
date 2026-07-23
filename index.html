@@ -1,9 +1,9 @@
-<title>Euroventilatori France — Ventilation industrielle, Lyon</title>
+<title>Ventilation industrielle près de Lyon - Euroventilatori France</title>
 <!-- ⚠️ PRÉPRODUCTION : retirer cette ligne noindex LE JOUR de la bascule du domaine,
      jamais avant (sinon duplicate content avec le site actuel), jamais après (sinon
      le site neuf reste invisible de Google). Voir runbook skill transfert-domaine. -->
 <meta name="robots" content="noindex">
-<meta name="description" content="Constructeur de ventilateurs industriels centrifuges et hélicoïdaux : calcul aéraulique, fabrication et livraison partout en France depuis la région lyonnaise. Caissons insonorisés, filtration d'air, bureau d'études intégré. Devis rapide.">
+<meta name="description" content="Experts en ventilation industrielle depuis plus de 35 ans, nous vous accompagnons et conseillons dans l'achat d'un ventilateur industriel adapté à vos besoins, près de Lyon et dans toute la France.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -12,352 +12,14 @@
   "description": "Constructeur français de ventilateurs industriels centrifuges et hélicoïdaux, de caissons insonorisés et de solutions de filtration d'air",
   "telephone": "+33474436838",
   "email": "contact@euroventilatori-france.com",
-  "address": { "@type": "PostalAddress", "addressLocality": "Lyon", "addressCountry": "FR" },
+  "address": { "@type": "PostalAddress", "streetAddress": "150 Rue du Vernay", "postalCode": "38300", "addressLocality": "Nivolas-Vermelle", "addressCountry": "FR" },
   "sameAs": [
     "https://facebook.com/profile.php?id=61572883753722",
     "https://linkedin.com/company/euroventilatori-france"
   ]
 }
 </script>
-<style>
-/* ==========================================================================
-   TOKENS — trois blocs obligatoires (média + data-theme dans les deux sens)
-   ========================================================================== */
-:root{
-  --paper:#F3F6FA; --surface:#FFFFFF; --ink:#0C1930; --muted:#51617A;
-  --brand:#033F87; --brand-soft:#E3ECF8; --deep:#04182F; --deep-ink:#DCE7F5;
-  --accent:#FF6A13; --accent-ink:#FFFFFF;
-  --line:#C9D6E6; --grid:rgba(3,63,135,.07); --grid-strong:rgba(3,63,135,.14);
-  --ghost:rgba(3,63,135,.09);
-  --ok:#1D7A4F;
-  --shadow:0 18px 50px -18px rgba(4,24,47,.25);
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --paper:#061224; --surface:#0B1E38; --ink:#E6EDF8; --muted:#94A6C0;
-    --brand:#5B95E6; --brand-soft:#0E2647; --deep:#030D1C; --deep-ink:#DCE7F5;
-    --accent:#FF7A2E; --accent-ink:#160A02;
-    --line:#1D3557; --grid:rgba(122,168,230,.08); --grid-strong:rgba(122,168,230,.16);
-    --ghost:rgba(122,168,230,.10);
-    --ok:#4CC38A;
-    --shadow:0 18px 50px -18px rgba(0,0,0,.6);
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#061224; --surface:#0B1E38; --ink:#E6EDF8; --muted:#94A6C0;
-  --brand:#5B95E6; --brand-soft:#0E2647; --deep:#030D1C; --deep-ink:#DCE7F5;
-  --accent:#FF7A2E; --accent-ink:#160A02;
-  --line:#1D3557; --grid:rgba(122,168,230,.08); --grid-strong:rgba(122,168,230,.16);
-  --ghost:rgba(122,168,230,.10);
-  --ok:#4CC38A;
-  --shadow:0 18px 50px -18px rgba(0,0,0,.6);
-}
-:root[data-theme="light"]{
-  --paper:#F3F6FA; --surface:#FFFFFF; --ink:#0C1930; --muted:#51617A;
-  --brand:#033F87; --brand-soft:#E3ECF8; --deep:#04182F; --deep-ink:#DCE7F5;
-  --accent:#FF6A13; --accent-ink:#FFFFFF;
-  --line:#C9D6E6; --grid:rgba(3,63,135,.07); --grid-strong:rgba(3,63,135,.14);
-  --ghost:rgba(3,63,135,.09);
-  --ok:#1D7A4F;
-  --shadow:0 18px 50px -18px rgba(4,24,47,.25);
-}
-
-/* ==========================================================================
-   BASE
-   ========================================================================== */
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{
-  font:16px/1.65 "Segoe UI", system-ui, sans-serif;
-  color:var(--ink); background:var(--paper);
-  overflow-x:clip;                       /* clip, pas hidden : préserve sticky */
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size:56px 56px;
-}
-[id]{scroll-margin-top:96px}
-h1,h2,h3{font-family:Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif;line-height:1.06;text-wrap:balance}
-.mono{font-family:Consolas,"Cascadia Mono",monospace}
-a{color:var(--brand)}
-img,canvas{max-width:100%}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
-.eyebrow{
-  font-family:Consolas,monospace;font-size:12.5px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--brand);display:flex;align-items:center;gap:10px;
-}
-.eyebrow::before{content:"";width:34px;height:2px;background:var(--accent)}
-.sec-head{display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:clamp(30px,5vw,54px)}
-.sec-head h2{font-size:clamp(30px,4.6vw,52px);text-transform:uppercase;letter-spacing:.01em}
-.sec-head p{color:var(--muted);font-size:17px;max-width:62ch}
-section{position:relative;padding:clamp(64px,9vw,128px) 0}
-
-/* Mots fantômes — décor typographique, un par grande section */
-.ghost{
-  position:absolute;top:8px;right:-.04em;z-index:0;pointer-events:none;user-select:none;
-  font-family:Bahnschrift,"Arial Narrow",sans-serif;font-weight:700;
-  font-size:clamp(90px,15vw,210px);letter-spacing:.02em;text-transform:uppercase;
-  color:transparent;-webkit-text-stroke:1.5px var(--ghost);white-space:nowrap;
-}
-@supports not (-webkit-text-stroke:1px black){ .ghost{color:var(--ghost)} }
-
-/* Reveal : opacité seule — le transform appartient à la parallaxe */
-.rv{opacity:0;transition:opacity .8s ease}
-.rv.on{opacity:1}
-
-/* ==========================================================================
-   HEADER
-   ========================================================================== */
-header{position:sticky;top:14px;z-index:50}
-.hd{
-  display:flex;align-items:center;gap:26px;height:64px;
-  background:color-mix(in srgb, var(--surface) 88%, transparent);
-  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;
-  padding:0 12px 0 26px;box-shadow:0 10px 30px -18px rgba(4,24,47,.35);
-}
-.logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;color:var(--ink)}
-.logo b{font-family:Bahnschrift,"Arial Narrow",sans-serif;font-size:19px;letter-spacing:.06em}
-.logo span{font-family:Consolas,monospace;font-size:10.5px;letter-spacing:.42em;color:var(--accent);margin-top:3px}
-nav.main{display:flex;gap:4px;margin-left:auto}
-nav.main a{
-  text-decoration:none;color:var(--ink);font-size:14.5px;font-weight:600;
-  padding:9px 13px;border-radius:8px;
-}
-nav.main a:hover{background:var(--brand-soft);color:var(--brand)}
-.hd-cta{display:flex;align-items:center;gap:10px}
-.tel{
-  font-family:Consolas,monospace;font-size:14px;font-weight:700;text-decoration:none;
-  color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;white-space:nowrap;
-}
-.tel:hover{border-color:var(--brand);color:var(--brand)}
-#themeBtn{
-  width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);
-  background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;
-}
-#themeBtn:hover{border-color:var(--brand)}
-#burger{display:none;width:44px;height:40px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px}
-
-/* ==========================================================================
-   HERO
-   ========================================================================== */
-.hero{min-height:92vh;display:flex;align-items:center;overflow:clip;padding:110px 0 90px}
-/* Le flux d'air passe DEVANT le titre (layering type Caeli) : canvas au-dessus,
-   pointer-events:none pour laisser cliquer les CTA en dessous */
-.hero-canvas{position:absolute;inset:-18% 0 0;width:100%;height:136%;z-index:1;pointer-events:none}
-.hero-inner{position:relative;z-index:0;display:flex;flex-direction:column;gap:26px;max-width:920px}
-.hero h1{
-  font-size:clamp(48px,9.6vw,138px);text-transform:uppercase;letter-spacing:.005em;
-}
-.hero h1 em{font-style:normal;color:var(--brand)}
-.hero p.lead{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:56ch}
-.hero-badges{display:flex;flex-wrap:wrap;gap:10px}
-.chip{
-  font-family:Consolas,monospace;font-size:12.5px;letter-spacing:.08em;
-  background:var(--surface);border:1px solid var(--line);border-radius:999px;
-  padding:7px 14px;color:var(--muted);
-}
-.chip b{color:var(--ink)}
-.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
-.btn{
-  display:inline-flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;
-  font-family:Bahnschrift,"Segoe UI Semibold",sans-serif;font-size:16px;letter-spacing:.05em;
-  text-transform:uppercase;padding:15px 26px;border-radius:12px;border:2px solid transparent;
-}
-.btn.primary{background:var(--accent);color:var(--accent-ink)}
-.btn.primary:hover{filter:brightness(1.08)}
-.btn.ghost-b{border-color:var(--brand);color:var(--brand);background:transparent}
-.btn.ghost-b:hover{background:var(--brand-soft)}
-.scroll-hint{
-  position:absolute;bottom:26px;left:50%;translate:-50% 0;z-index:2;
-  display:inline-flex;align-items:center;gap:12px;text-decoration:none;
-  font-family:Consolas,monospace;font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;
-}
-.scroll-hint .circ{
-  width:36px;height:36px;border:1.5px solid var(--muted);border-radius:50%;
-  display:inline-flex;align-items:center;justify-content:center;font-size:14px;letter-spacing:0;
-}
-.scroll-hint:hover{color:var(--brand)}
-.scroll-hint:hover .circ{border-color:var(--brand)}
-
-/* ==========================================================================
-   BANDE CHIFFRES (deep)
-   ========================================================================== */
-/* Bandes profondes arrondies, détachées du bord (grammaire de carte) */
-.stats,.tool{border:1px solid var(--line)}
-.stats{
-  background:var(--deep);color:var(--deep-ink);padding:clamp(48px,6vw,84px) 0;overflow:clip;
-  border-radius:30px;margin:0 clamp(10px,1.8vw,28px);
-}
-.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,4vw,54px)}
-.stat{border-left:2px solid rgba(255,255,255,.14);padding-left:20px}
-.stat .num{
-  font-family:Bahnschrift,"Arial Narrow",sans-serif;font-weight:700;
-  font-size:clamp(38px,5.4vw,68px);line-height:1;font-variant-numeric:tabular-nums;
-}
-.stat .num i{font-style:normal;color:var(--accent);font-size:.55em;vertical-align:.28em;margin-left:2px}
-.stat .lbl{font-family:Consolas,monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.72;margin-top:8px}
-
-/* ==========================================================================
-   BENTO OFFRE
-   ========================================================================== */
-.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;position:relative;z-index:1}
-.card{
-  background:var(--surface);border:1px solid var(--line);border-radius:24px;
-  padding:26px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:clip;
-  transition:border-color .25s ease, box-shadow .25s ease;
-}
-.card:hover{border-color:var(--brand);box-shadow:var(--shadow)}
-.card h3{font-size:21px;text-transform:uppercase;letter-spacing:.02em}
-.card p{color:var(--muted);font-size:14.5px}
-.card .tag{font-family:Consolas,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
-.card .more{
-  margin-top:auto;font-family:Consolas,monospace;font-size:12.5px;color:var(--brand);
-  text-decoration:none;opacity:0;translate:0 4px;transition:opacity .25s ease, translate .25s ease;
-}
-.card:hover .more,.card:focus-within .more{opacity:1;translate:0 0}
-@media (hover:none){ .card .more{opacity:1;translate:0 0} }
-.c-a{grid-column:span 4;grid-row:span 2;min-height:330px}
-.c-b{grid-column:span 2}
-.c-c{grid-column:span 2}
-.c-d{grid-column:span 2}
-.c-e{grid-column:span 2}
-.c-f{grid-column:span 2}
-#famCanvas{position:absolute;right:0;bottom:0;width:62%;height:64%;pointer-events:none}
-.spec{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px}
-.spec span{font-family:Consolas,monospace;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:3px 9px}
-
-/* ==========================================================================
-   SECTEURS
-   ========================================================================== */
-.sect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
-.sect{
-  background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;
-  min-height:190px;display:flex;flex-direction:column;gap:8px;transition:border-color .25s ease;
-}
-.sect:hover{border-color:var(--accent)}
-.sect .idx{font-family:Consolas,monospace;font-size:11.5px;color:var(--muted);letter-spacing:.2em}
-.sect h3{font-size:18px;text-transform:uppercase}
-.sect p{font-size:13.5px;color:var(--muted)}
-.sect .use{font-family:Consolas,monospace;font-size:12px;color:var(--brand);margin-top:auto}
-
-/* ==========================================================================
-   OUTIL — PUPITRE DE SÉLECTION
-   ========================================================================== */
-.tool{
-  background:var(--deep);color:var(--deep-ink);
-  border-radius:30px;margin:0 clamp(10px,1.8vw,28px);overflow:clip;
-}
-/* Tête de section centrée, display en dégradé (dispositif bande profonde) */
-.tool .sec-head{margin-left:auto;margin-right:auto;text-align:center;align-items:center}
-.tool .sec-head h2{
-  background:linear-gradient(105deg,#FFFFFF 35%,#8FB4E8 85%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.tool .sec-head p{color:rgba(220,231,245,.72)}
-.tool .eyebrow{color:#8FB4E8;justify-content:center}
-.tool .eyebrow::after{content:"";width:34px;height:2px;background:var(--accent)}
-.pupitre{
-  display:grid;grid-template-columns:380px 1fr;gap:26px;align-items:stretch;
-  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;padding:clamp(20px,3vw,34px);position:relative;z-index:1;
-}
-.controls{display:flex;flex-direction:column;gap:24px}
-.ctrl label{display:flex;justify-content:space-between;align-items:baseline;font-family:Consolas,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#AFC6E4}
-.ctrl output{font-family:Consolas,monospace;font-size:18px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
-.ctrl input[type=range]{width:100%;accent-color:var(--accent);margin-top:10px;height:26px}
-.readout{
-  border-top:1px solid rgba(255,255,255,.14);padding-top:20px;display:flex;flex-direction:column;gap:12px;
-}
-.readout .row{display:flex;justify-content:space-between;font-family:Consolas,monospace;font-size:13.5px}
-.readout .row b{color:#fff;font-variant-numeric:tabular-nums}
-.fam-pill{
-  align-self:flex-start;font-family:Bahnschrift,sans-serif;text-transform:uppercase;letter-spacing:.07em;
-  background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:7px 16px;font-size:14px;
-}
-.formule{font-family:Consolas,monospace;font-size:11.5px;color:#7E9BC4;line-height:1.8}
-.mapbox{position:relative;min-height:380px;border-radius:14px;overflow:clip;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)}
-#mapCanvas{position:absolute;inset:0;width:100%;height:100%}
-.tool .btn.primary{margin-top:8px;justify-content:center}
-
-/* ==========================================================================
-   MÉTHODE (bureau d'études)
-   ========================================================================== */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1;counter-reset:step}
-.step{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;counter-increment:step}
-.step::before{
-  content:"0" counter(step);font-family:Bahnschrift,"Arial Narrow",sans-serif;font-weight:700;
-  font-size:44px;color:transparent;-webkit-text-stroke:1.4px var(--brand);display:block;line-height:1;margin-bottom:12px;
-}
-@supports not (-webkit-text-stroke:1px black){ .step::before{color:var(--brand-soft)} }
-.step h3{font-size:17px;text-transform:uppercase;margin-bottom:6px}
-.step p{font-size:13.5px;color:var(--muted)}
-
-/* ==========================================================================
-   TÉMOIGNAGES
-   ========================================================================== */
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:1}
-.quote{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:14px}
-.quote p{font-size:14.5px;color:var(--ink)}
-.quote footer{font-family:Consolas,monospace;font-size:12.5px;color:var(--muted);letter-spacing:.06em}
-.quote .mark{font-family:Bahnschrift,serif;font-size:40px;line-height:.6;color:var(--accent)}
-
-/* ==========================================================================
-   CONTACT + FOOTER
-   ========================================================================== */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;position:relative;z-index:1}
-.contact-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px}
-.contact-card .big{font-family:Bahnschrift,sans-serif;font-size:clamp(22px,2.6vw,30px);text-transform:uppercase}
-.coord{display:flex;flex-direction:column;gap:10px;font-family:Consolas,monospace;font-size:14.5px}
-.coord a{text-decoration:none}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-family:Consolas,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.field input,.field textarea{
-  font:15px/1.5 "Segoe UI",sans-serif;color:var(--ink);background:var(--paper);
-  border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;
-}
-.field input:focus,.field textarea:focus{border-color:var(--brand);outline:none}
-form .btn{border:none}
-footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;font-size:14px}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
-.foot-grid h4{font-family:Consolas,monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:12px}
-.foot-grid a{display:block;color:var(--deep-ink);text-decoration:none;opacity:.85;padding:3px 0;font-size:13.5px}
-.foot-grid a:hover{opacity:1;color:#fff}
-.foot-note{border-top:1px solid rgba(255,255,255,.14);padding-top:20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:Consolas,monospace;font-size:12px;opacity:.7}
-
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
-@media (max-width:980px){
-  nav.main{
-    display:none;position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;
-    background:var(--surface);border:1px solid var(--line);border-radius:22px;
-    box-shadow:var(--shadow);padding:14px;gap:2px;
-  }
-  nav.main.open{display:flex}
-  #burger{display:block;margin-left:auto}
-  .hd-cta .tel{display:none}
-  .stats .wrap{grid-template-columns:1fr 1fr}
-  .bento{grid-template-columns:1fr 1fr}
-  .c-a{grid-column:span 2}
-  .c-b,.c-c,.c-d,.c-e,.c-f{grid-column:span 1}
-  .sect-grid,.steps{grid-template-columns:1fr 1fr}
-  .quotes,.contact-grid{grid-template-columns:1fr}
-  .pupitre{grid-template-columns:1fr}
-  .mapbox{min-height:300px}
-  .foot-grid{grid-template-columns:1fr 1fr}
-}
-@media (max-width:560px){
-  .bento,.sect-grid,.steps,.stats .wrap{grid-template-columns:1fr}
-  .c-a,.c-b,.c-c,.c-d,.c-e,.c-f{grid-column:span 1}
-  .ghost{display:none}
-}
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  .rv{opacity:1;transition:none}
-  .card,.card .more{transition:none}
-}
-</style>
+<link rel="stylesheet" href="assets/styles.css">
 
 <!-- ======================= HEADER ======================= -->
 <header>
@@ -367,12 +29,12 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
     </a>
     <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="main" id="mainNav" aria-label="Navigation principale">
-      <a href="#offre">Produits &amp; solutions</a>
-      <a href="#secteurs">Secteurs</a>
-      <a href="#selecteur">Sélecteur</a>
-      <a href="#methode">Bureau d'études</a>
-      <a href="#temoignages">Références</a>
-      <a href="#contact">Contact</a>
+      <a href="/ventilateurs">Nos produits</a>
+      <a href="/solutions-ventilateur-industriel">Solutions</a>
+      <a href="/secteurs-activite">Secteurs</a>
+      <a href="/bureau-etudes">Bureau d'études</a>
+      <a href="/telechargement">Téléchargement</a>
+      <a href="/contact">Contact</a>
     </nav>
     <div class="hd-cta">
       <a class="tel" href="tel:0474436838">04 74 43 68 38</a>
@@ -386,7 +48,7 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
   <canvas class="hero-canvas" id="heroCanvas" data-plx="0.38" aria-hidden="true"></canvas>
   <div class="wrap hero-inner" data-plx="0.2">
     <p class="eyebrow">Ventilation industrielle — Lyon · Intervention France entière</p>
-    <h1>La ventilation<br><em>inspirée</em></h1>
+    <h1>La ventilation<br><em>industrielle</em><span style="display:block;font-family:Consolas,monospace;font-size:clamp(15px,1.8vw,22px);letter-spacing:.14em;margin-top:16px;color:var(--muted);text-transform:uppercase">chez Euroventilatori France, à Lyon</span></h1>
     <p class="lead">Du calcul aéraulique à la mise en service, nous construisons les
       ventilateurs centrifuges et hélicoïdaux qui font respirer vos process — et les
       caissons acoustiques et systèmes de filtration qui vont avec.</p>
@@ -419,7 +81,7 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow">Relevé nº1 — l'offre</p>
-      <h2>Produits &amp; solutions</h2>
+      <h2>Notre gamme de ventilateurs industriels et solutions acoustiques</h2>
       <p>Chaque process industriel respire par son ventilateur. Autour de cette pièce
         maîtresse, une offre complète : gammes standard, machines sur mesure, acoustique,
         filtration et accessoires — portée par un bureau d'études intégré.</p>
@@ -432,42 +94,42 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
           éprouvées, disponibles rapidement, couvrant l'essentiel des besoins aérauliques.</p>
         <div class="spec"><span>Basse pression</span><span>Moyenne pression</span><span>Haute pression</span><span>Hélicoïdaux</span></div>
         <canvas id="famCanvas" aria-hidden="true"></canvas>
-        <a class="more" href="#selecteur">→ tester le sélecteur</a>
+        <a class="more" href="/ventilateur-gamme">→ découvrir la gamme</a>
       </article>
       <article class="card c-b rv">
         <span class="tag">Spécifique</span>
         <h3>Sur mesure</h3>
         <p>Conception dédiée quand la gamme ne suffit pas : fluides chargés, hautes
           températures, ATEX, matériaux spéciaux.</p>
-        <a class="more" href="#contact">→ décrire votre besoin</a>
+        <a class="more" href="/ventilateur-sur-mesure">→ le sur-mesure</a>
       </article>
       <article class="card c-c rv">
         <span class="tag">Acoustique</span>
         <h3>Caissons insonorisés</h3>
         <p>Solutions acoustiques adaptées à vos exigences sonores : caissons, silencieux,
           traitement de l'environnement machine.</p>
-        <a class="more" href="#contact">→ parler dB(A)</a>
+        <a class="more" href="/caissons-insonorises">→ parler dB(A)</a>
       </article>
       <article class="card c-d rv">
         <span class="tag">Qualité d'air</span>
         <h3>Filtration</h3>
         <p>Purification et filtration de l'air pour protéger process, produits
           et opérateurs.</p>
-        <a class="more" href="#contact">→ étudier votre air</a>
+        <a class="more" href="/purificateur-air">→ étudier votre air</a>
       </article>
       <article class="card c-e rv">
         <span class="tag">Compléments</span>
         <h3>Accessoires</h3>
         <p>Manchettes, contre-brides, registres, supports antivibratiles : tout ce qui
           raccorde le ventilateur à votre installation.</p>
-        <a class="more" href="#contact">→ compléter l'installation</a>
+        <a class="more" href="/nos-autres-accessoires">→ compléter l'installation</a>
       </article>
       <article class="card c-f rv">
         <span class="tag">Ingénierie</span>
         <h3>Bureau d'études</h3>
         <p>Dimensionnement, plans d'implantation, adaptation à vos contraintes —
           avec la réactivité que nos clients saluent.</p>
-        <a class="more" href="#methode">→ voir la méthode</a>
+        <a class="more" href="/bureau-etudes">→ le bureau d'études</a>
       </article>
     </div>
   </div>
@@ -550,7 +212,7 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow">Relevé nº4 — la méthode</p>
-      <h2>Du besoin à la mise en service</h2>
+      <h2>Conception et fabrication de ventilateurs industriels sur mesure</h2>
       <p>Des techniciens spécialisés et un circuit court entre votre cahier des charges
         et l'atelier : la performance et la fiabilité se jouent à chaque étape, pas
         seulement sur le banc d'essais.</p>
@@ -570,7 +232,7 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow">Relevé nº5 — le terrain parle</p>
-      <h2>Ils l'ont vérifié sur site</h2>
+      <h2>Nos clients partagent leur expérience</h2>
     </div>
     <div class="quotes">
       <blockquote class="quote rv"><span class="mark" aria-hidden="true">“</span>
@@ -637,27 +299,31 @@ footer.site{background:var(--deep);color:var(--deep-ink);padding:56px 0 34px;fon
         <p style="opacity:.7;font-size:13.5px;margin-top:14px;max-width:38ch">Constructeur
           de ventilateurs industriels et de solutions acoustiques — plus de 35 ans au
           service de l'air des usines.</p>
+        <p class="mono" style="opacity:.6;font-size:12px;margin-top:10px">150 Rue du Vernay<br>38300 Nivolas-Vermelle</p>
       </div>
       <div>
         <h4>Produits</h4>
-        <a href="#offre">Ventilateurs de gamme</a>
-        <a href="#offre">Ventilateurs sur mesure</a>
-        <a href="#offre">Acoustique</a>
-        <a href="#offre">Filtration</a>
-        <a href="#offre">Accessoires</a>
+        <a href="/ventilateurs">Nos ventilateurs</a>
+        <a href="/ventilateur-gamme">Ventilateurs de gamme</a>
+        <a href="/ventilateur-sur-mesure">Ventilateurs sur mesure</a>
+        <a href="/caissons-insonorises">Acoustique</a>
+        <a href="/purificateur-air">Filtration</a>
+        <a href="/nos-autres-accessoires">Accessoires</a>
       </div>
       <div>
         <h4>Entreprise</h4>
-        <a href="#methode">Bureau d'études</a>
-        <a href="#secteurs">Secteurs d'activité</a>
-        <a href="#temoignages">Références</a>
-        <a href="#contact">Contact</a>
+        <a href="/qui-sommes-nous">Qui sommes-nous ?</a>
+        <a href="/bureau-etudes">Bureau d'études</a>
+        <a href="/competences">Compétences</a>
+        <a href="/secteurs-activite">Secteurs d'activité</a>
+        <a href="/actualites">Actualités</a>
       </div>
       <div>
         <h4>Ressources</h4>
+        <a href="/solutions-ventilateur-industriel">Solutions</a>
+        <a href="/telechargement">Téléchargement &amp; LiveCurve</a>
         <a href="#selecteur">Outil de sélection</a>
-        <a href="#contact">Téléchargements (à venir)</a>
-        <a href="#contact">Actualités (à venir)</a>
+        <a href="/contact">Contact &amp; devis</a>
       </div>
     </div>
     <div class="foot-note">
