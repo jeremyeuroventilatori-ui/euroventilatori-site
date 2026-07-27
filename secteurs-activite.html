@@ -5,11 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Les domaines d'application des ventilateurs industriels - Lyon</title>
 <meta name="description" content="Chimie, pétrochimie, cosmétique, ferroviaire, textile, agroalimentaire, énergie, métallurgie… nos ventilateurs équipent tous les secteurs industriels.">
+<link rel="canonical" href="https://www.euroventilatori.fr/secteurs-activite">
 <!-- ⚠️ PRÉPRODUCTION : retirer ce noindex LE JOUR de la bascule du domaine. -->
 <meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Euroventilatori France">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Les domaines d'application des ventilateurs industriels - Lyon">
+<meta property="og:description" content="Chimie, pétrochimie, cosmétique, ferroviaire, textile, agroalimentaire, énergie, métallurgie… nos ventilateurs équipent tous les secteurs industriels.">
+<meta property="og:url" content="https://www.euroventilatori.fr/secteurs-activite">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#033F87">
 <link rel="stylesheet" href="assets/styles.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "Euroventilatori France",
+ "url": "https://www.euroventilatori.fr",
+ "description": "Constructeur de ventilateurs industriels centrifuges et hélicoïdaux, de caissons insonorisés et de solutions de filtration d'air.",
+ "telephone": "+33474436838",
+ "email": "contact@euroventilatori-france.com",
+ "foundingDate": "1981",
+ "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "150 Rue du Vernay",
+  "postalCode": "38300",
+  "addressLocality": "Nivolas-Vermelle",
+  "addressCountry": "FR"
+ },
+ "areaServed": "FR",
+ "sameAs": [
+  "https://facebook.com/profile.php?id=61572883753722",
+  "https://linkedin.com/company/euroventilatori-france"
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Accueil",
+   "item": "https://www.euroventilatori.fr/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Secteurs d'activité"
+  }
+ ]
+}
+</script>
 </head>
 <body>
+<canvas id="airCanvas" aria-hidden="true"></canvas>
 <header>
   <div class="wrap hd">
     <a class="logo" href="/" aria-label="Euroventilatori France — accueil">
@@ -19,7 +72,7 @@
     <nav class="main" id="mainNav" aria-label="Navigation principale">
       <a href="/ventilateurs">Nos produits</a>
       <a href="/solutions-ventilateur-industriel">Solutions</a>
-      <a href="/secteurs-activite">Secteurs</a>
+      <a href="/secteurs-activite" aria-current="page">Secteurs</a>
       <a href="/bureau-etudes">Bureau d'études</a>
       <a href="/telechargement">Téléchargement</a>
       <a href="/contact">Contact</a>
@@ -31,6 +84,9 @@
   </div>
 </header>
 <main>
+<nav class="breadcrumb wrap" aria-label="Fil d'Ariane">
+  <ol><li><a href="/">Accueil</a></li><li aria-current="page">Secteurs d'activité</li></ol>
+</nav>
 <section class="hero-lite">
   <span class="ghost" data-plx="-0.14" aria-hidden="true">Industrie</span>
   <div class="wrap">
@@ -43,6 +99,16 @@ ventilateurs. Selon le secteur, elle est plus ou moins technique&nbsp;: à chaqu
 process son équipement.</p>
     </div>
     <div class="cta-row"><a class="btn primary" href="/contact">Prenons rendez-vous</a></div>
+  </div>
+</section>
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-grid">
+      <div class="proof-item rv"><span class="n"><span data-count="35">0</span><i>ans</i></span><span class="l">d'expertise en France</span></div>
+      <div class="proof-item rv"><span class="n"><span data-count="30000">0</span></span><span class="l">ventilateurs produits par an</span></div>
+      <div class="proof-item rv"><span class="n"><span data-count="28000">0</span><i>m²</i></span><span class="l">de surface de production</span></div>
+      <div class="proof-item rv"><span class="n">24<i>h</i></span><span class="l">pour un devis détaillé</span></div>
+    </div>
   </div>
 </section>
 <section class="page-sec">
@@ -63,6 +129,12 @@ process son équipement.</p>
       <p>Un dimensionnement juste, c'est un process fiable et une facture énergétique maîtrisée — le cœur de notre <a href="/competences">savoir-faire</a>.</p>
       <div class="spec"><span>Pétrochimie</span><span>Agroalimentaire</span><span>Métallurgie</span><span>Textile</span><span>Ferroviaire</span><span>Verrerie</span></div>
     </div>
+  </div>
+</section>
+<section class="related">
+  <div class="wrap">
+    <h2>À consulter également</h2>
+    <div class="related-grid"><a href="/ventilateurs"><strong>Tous nos ventilateurs</strong><span>Centrifuges et hélicoïdaux, standards ou spécifiques.</span><span class="go">Consulter →</span></a><a href="/ventilateur-sur-mesure"><strong>Ventilateurs sur mesure</strong><span>Aciers spéciaux, hautes températures, ATEX : la machine dédiée.</span><span class="go">Consulter →</span></a><a href="/qui-sommes-nous"><strong>Qui sommes-nous ?</strong><span>40 ans de savoir-faire, 28 000 m² de production.</span><span class="go">Consulter →</span></a></div>
   </div>
 </section>
 <section class="cta-band-wrap">
@@ -112,8 +184,12 @@ process son équipement.</p>
       </div>
     </div>
     <div class="foot-note">
-      <span>© 2026 Euroventilatori France — Mentions légales · Vie privée · Cookies</span>
-      <span>Maquette de travail — contenus à valider avant mise en ligne</span>
+      <span>© 2026 Euroventilatori France — Constructeur de ventilateurs industriels</span>
+      <span class="foot-legal">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/vie-privee">Vie privée</a>
+        <a href="/privacy">Cookies</a>
+      </span>
     </div>
   </div>
 </footer>

@@ -17,7 +17,30 @@ actuel à l'identique** (voir `seo-inventaire.md`) pour préserver le référenc
 | `sitemap.xml` | Les 15 URL canoniques |
 | `_redirects` | 301 résiduelles (/outils, /calculs) pour Cloudflare Pages |
 | `robots.txt` | Directives d'indexation (moteurs classiques + moteurs IA) |
+| `migration-inventaire-dns.md` | Relevé DNS avant bascule (OVH → Cloudflare) |
 | `gen_pages.py`, `extract_assets.py` | Scripts de génération (contenu des pages centralisé dans gen_pages.py) |
+| `build_preview.py` | Construit l'aperçu autonome publié en Artifact pour validation |
+
+## Standards de finition (à préserver à chaque évolution)
+
+Toutes les pages portent, sans exception :
+
+- `<html lang="fr">`, `charset`, `viewport`, `<link rel="canonical">`
+- Open Graph complet (titre, description, URL) — conditionne l'aperçu des partages
+  LinkedIn et le contexte lu par les moteurs IA
+- JSON-LD `Organization` **et** `BreadcrumbList` (pages intérieures)
+- **Un seul `<h1>` par page**, aucun `<title>` ni `<h1>` dupliqué sur le site
+- Fil d'Ariane visible, page courante signalée dans le menu (`aria-current`)
+- Bandeau de preuves chiffrées et bloc « À consulter également » (maillage interne)
+- Le souffle (`#airCanvas`) — nappe d'air commune, désactivée si
+  `prefers-reduced-motion`
+
+Après toute modification : `python gen_pages.py` puis `python build_preview.py`.
+Vérifier en local avant de pousser :
+
+```
+python -m http.server 8765
+```
 
 ## Modifier le site
 

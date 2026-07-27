@@ -6,19 +6,31 @@ réel. Exécuter depuis le dossier euroventilatori-site : python gen_pages.py
 """
 import io, os
 
-NAV = """<header>
+SITE = "https://www.euroventilatori.fr"
+
+NAV_ITEMS = [
+    ("/ventilateurs", "Nos produits"),
+    ("/solutions-ventilateur-industriel", "Solutions"),
+    ("/secteurs-activite", "Secteurs"),
+    ("/bureau-etudes", "Bureau d'études"),
+    ("/telechargement", "Téléchargement"),
+    ("/contact", "Contact"),
+]
+
+def nav_html(active_url):
+    """Menu principal. La page courante est signalée (repère visuel + a11y)."""
+    links = []
+    for url, label in NAV_ITEMS:
+        cur = ' aria-current="page"' if url == active_url else ""
+        links.append(f'      <a href="{url}"{cur}>{label}</a>')
+    return """<header>
   <div class="wrap hd">
     <a class="logo" href="/" aria-label="Euroventilatori France — accueil">
       <b>EUROVENTILATORI</b><span>FRANCE</span>
     </a>
     <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="main" id="mainNav" aria-label="Navigation principale">
-      <a href="/ventilateurs">Nos produits</a>
-      <a href="/solutions-ventilateur-industriel">Solutions</a>
-      <a href="/secteurs-activite">Secteurs</a>
-      <a href="/bureau-etudes">Bureau d'études</a>
-      <a href="/telechargement">Téléchargement</a>
-      <a href="/contact">Contact</a>
+""" + "\n".join(links) + """
     </nav>
     <div class="hd-cta">
       <a class="tel" href="tel:0474436838">04 74 43 68 38</a>
@@ -26,6 +38,77 @@ NAV = """<header>
     </div>
   </div>
 </header>"""
+
+def breadcrumb_html(trail):
+    """Fil d'Ariane visible. `trail` = [(label, url|None), …], le dernier sans url."""
+    items = ['<li><a href="/">Accueil</a></li>']
+    for label, url in trail:
+        if url:
+            items.append(f'<li><a href="{url}">{label}</a></li>')
+        else:
+            items.append(f'<li aria-current="page">{label}</li>')
+    return ('<nav class="breadcrumb wrap" aria-label="Fil d\'Ariane">\n  <ol>'
+            + "".join(items) + "</ol>\n</nav>")
+
+def breadcrumb_jsonld(trail):
+    els = [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": SITE + "/"}]
+    for i, (label, url) in enumerate(trail, start=2):
+        e = {"@type": "ListItem", "position": i, "name": label}
+        if url:
+            e["item"] = SITE + url
+        els.append(e)
+    import json
+    return json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList",
+                       "itemListElement": els}, ensure_ascii=False, indent=1)
+
+ORG_JSONLD = """{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "Euroventilatori France",
+ "url": "https://www.euroventilatori.fr",
+ "description": "Constructeur de ventilateurs industriels centrifuges et hélicoïdaux, de caissons insonorisés et de solutions de filtration d'air.",
+ "telephone": "+33474436838",
+ "email": "contact@euroventilatori-france.com",
+ "foundingDate": "1981",
+ "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "150 Rue du Vernay",
+  "postalCode": "38300",
+  "addressLocality": "Nivolas-Vermelle",
+  "addressCountry": "FR"
+ },
+ "areaServed": "FR",
+ "sameAs": [
+  "https://facebook.com/profile.php?id=61572883753722",
+  "https://linkedin.com/company/euroventilatori-france"
+ ]
+}"""
+
+# Bandeau de preuves — chiffres relevés sur le site actuel, tous vérifiés.
+PROOF = """<section class="proof">
+  <div class="wrap">
+    <div class="proof-grid">
+      <div class="proof-item rv"><span class="n"><span data-count="35">0</span><i>ans</i></span><span class="l">d'expertise en France</span></div>
+      <div class="proof-item rv"><span class="n"><span data-count="30000">0</span></span><span class="l">ventilateurs produits par an</span></div>
+      <div class="proof-item rv"><span class="n"><span data-count="28000">0</span><i>m²</i></span><span class="l">de surface de production</span></div>
+      <div class="proof-item rv"><span class="n">24<i>h</i></span><span class="l">pour un devis détaillé</span></div>
+    </div>
+  </div>
+</section>"""
+
+def related_html(cards):
+    """Pages liées : circulation du lecteur et maillage interne."""
+    if not cards:
+        return ""
+    items = "".join(
+        f'<a href="{u}"><strong>{t}</strong><span>{d}</span>'
+        f'<span class="go">Consulter →</span></a>' for u, t, d in cards)
+    return f"""<section class="related">
+  <div class="wrap">
+    <h2>À consulter également</h2>
+    <div class="related-grid">{items}</div>
+  </div>
+</section>"""
 
 FOOTER = """<footer class="site">
   <div class="wrap">
@@ -62,8 +145,12 @@ FOOTER = """<footer class="site">
       </div>
     </div>
     <div class="foot-note">
-      <span>© 2026 Euroventilatori France — Mentions légales · Vie privée · Cookies</span>
-      <span>Maquette de travail — contenus à valider avant mise en ligne</span>
+      <span>© 2026 Euroventilatori France — Constructeur de ventilateurs industriels</span>
+      <span class="foot-legal">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/vie-privee">Vie privée</a>
+        <a href="/privacy">Cookies</a>
+      </span>
     </div>
   </div>
 </footer>"""
@@ -75,13 +162,30 @@ TPL = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<link rel="canonical" href="{canonical}">
 <!-- ⚠️ PRÉPRODUCTION : retirer ce noindex LE JOUR de la bascule du domaine. -->
 <meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Euroventilatori France">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{canonical}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#033F87">
 <link rel="stylesheet" href="assets/styles.css">
+<script type="application/ld+json">
+{org}
+</script>
+<script type="application/ld+json">
+{bcjson}
+</script>
 </head>
 <body>
+<canvas id="airCanvas" aria-hidden="true"></canvas>
 {nav}
 <main>
+{breadcrumb}
 <section class="hero-lite">
   <span class="ghost" data-plx="-0.14" aria-hidden="true">{ghost}</span>
   <div class="wrap">
@@ -93,7 +197,9 @@ TPL = """<!doctype html>
     <div class="cta-row">{cta}</div>
   </div>
 </section>
+{proof}
 {sections}
+{related}
 <section class="cta-band-wrap">
   <div class="cta-band">
     <div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px">
@@ -428,12 +534,91 @@ nouvelles du fabricant de ventilateurs industriels de Nivolas-Vermelle.</p>""",
       "<i>(Flux complet à raccorder au blog lors de la mise en production.)</i>"]),
   ])
 
+# ---------------------------------------------------------------------------
+# Métadonnées de navigation, par page :
+#   nav      → entrée de menu à surligner
+#   trail    → fil d'Ariane (le dernier élément, sans URL, est la page courante)
+#   proof    → afficher le bandeau de preuves (non pertinent sur contact/actus)
+#   related  → 3 pages liées : circulation du lecteur + maillage interne
+# ---------------------------------------------------------------------------
+PRODUITS = ("Nos produits", "/ventilateurs")
+
+R = {
+  "gamme":    ("/ventilateur-gamme", "Ventilateurs de gamme",
+               "53 séries, 25 tailles, 16 orientations : le catalogue standard."),
+  "mesure":   ("/ventilateur-sur-mesure", "Ventilateurs sur mesure",
+               "Aciers spéciaux, hautes températures, ATEX : la machine dédiée."),
+  "produits": ("/ventilateurs", "Tous nos ventilateurs",
+               "Centrifuges et hélicoïdaux, standards ou spécifiques."),
+  "acou":     ("/caissons-insonorises", "Caissons insonorisés",
+               "Traiter le bruit à la source, sans dégrader l'aéraulique."),
+  "filtr":    ("/purificateur-air", "Filtration de l'air",
+               "Caissons de filtration pour purifier l'air aspiré ou soufflé."),
+  "acc":      ("/nos-autres-accessoires", "Accessoires",
+               "Manchettes, registres, supports : raccorder proprement."),
+  "solutions":("/solutions-ventilateur-industriel", "Solutions complètes",
+               "Filtration, insonorisation et accessoires réunis."),
+  "be":       ("/bureau-etudes", "Bureau d'études",
+               "Dimensionnement et conception CAO 2D/3D SolidWorks."),
+  "comp":     ("/competences", "Nos compétences",
+               "Conception, dimensionnement, essais et suivi."),
+  "secteurs": ("/secteurs-activite", "Secteurs d'activité",
+               "Énergie, agroalimentaire, métallurgie, textile…"),
+  "qui":      ("/qui-sommes-nous", "Qui sommes-nous ?",
+               "40 ans de savoir-faire, 28 000 m² de production."),
+  "dl":       ("/telechargement", "LiveCurve & documentation",
+               "Simuler les courbes aérauliques et télécharger les fiches."),
+  "contact":  ("/contact", "Contact & devis",
+               "Devis détaillé sous 24 h pour votre point de fonctionnement."),
+}
+
+META = {
+ "ventilateurs.html":                  dict(nav="/ventilateurs", trail=[("Nos produits", None)],
+                                            related=["gamme","mesure","solutions"]),
+ "ventilateur-gamme.html":             dict(nav="/ventilateurs", trail=[PRODUITS, ("Ventilateurs de gamme", None)],
+                                            related=["mesure","dl","secteurs"]),
+ "ventilateur-sur-mesure.html":        dict(nav="/ventilateurs", trail=[PRODUITS, ("Ventilateurs sur mesure", None)],
+                                            related=["be","gamme","secteurs"]),
+ "solutions-ventilateur-industriel.html": dict(nav="/solutions-ventilateur-industriel", trail=[("Solutions", None)],
+                                            related=["acou","filtr","acc"]),
+ "caissons-insonorises.html":          dict(nav="/solutions-ventilateur-industriel", trail=[("Solutions", "/solutions-ventilateur-industriel"), ("Acoustique", None)],
+                                            related=["filtr","acc","produits"]),
+ "purificateur-air.html":              dict(nav="/solutions-ventilateur-industriel", trail=[("Solutions", "/solutions-ventilateur-industriel"), ("Filtration", None)],
+                                            related=["acou","acc","produits"]),
+ "nos-autres-accessoires.html":        dict(nav="/solutions-ventilateur-industriel", trail=[("Solutions", "/solutions-ventilateur-industriel"), ("Accessoires", None)],
+                                            related=["acou","filtr","produits"]),
+ "bureau-etudes.html":                 dict(nav="/bureau-etudes", trail=[("Bureau d'études", None)],
+                                            related=["comp","mesure","dl"]),
+ "competences.html":                   dict(nav="/bureau-etudes", trail=[("Bureau d'études", "/bureau-etudes"), ("Compétences", None)],
+                                            related=["be","qui","produits"]),
+ "qui-sommes-nous.html":               dict(nav="/bureau-etudes", trail=[("Qui sommes-nous ?", None)],
+                                            related=["comp","secteurs","be"]),
+ "secteurs-activite.html":             dict(nav="/secteurs-activite", trail=[("Secteurs d'activité", None)],
+                                            related=["produits","mesure","qui"]),
+ "telechargement.html":                dict(nav="/telechargement", trail=[("Téléchargement", None)],
+                                            related=["gamme","be","contact"]),
+ "contact.html":                       dict(nav="/contact", trail=[("Contact", None)], proof=False,
+                                            related=["dl","be","produits"]),
+ "actualites.html":                    dict(nav="/telechargement", trail=[("Actualités", None)], proof=False,
+                                            related=["qui","secteurs","produits"]),
+}
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 for fname, d in P.items():
+    m = META.get(fname, dict(nav="", trail=[(d["h1"][:40], None)], related=[]))
+    slug = "/" + fname.replace(".html", "")
     sections = "\n".join(sec(h2, paras, *rest) for h2, paras, *rest in d["sections"])
     html = TPL.format(title=d["title"], desc=d["desc"], h1=d["h1"], kicker=d["kicker"],
                       ghost=d["ghost"], intro=d["intro"], cta=d["cta"],
-                      sections=sections, nav=NAV, footer=FOOTER)
+                      sections=sections,
+                      nav=nav_html(m["nav"]),
+                      breadcrumb=breadcrumb_html(m["trail"]),
+                      bcjson=breadcrumb_jsonld(m["trail"]),
+                      org=ORG_JSONLD,
+                      canonical=SITE + slug,
+                      proof=PROOF if m.get("proof", True) else "",
+                      related=related_html([R[k] for k in m["related"]]),
+                      footer=FOOTER)
     with io.open(fname, "w", encoding="utf-8") as f:
         f.write(html)
     print("OK", fname)
