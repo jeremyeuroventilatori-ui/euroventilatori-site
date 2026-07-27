@@ -140,6 +140,58 @@ if (rv.length) {
   }
 }
 
+/* ============================================================
+   PARALLAXE — panneaux qui s'ouvrent, section épinglée.
+   Grammaire observée sur caeli-energie.com, réécrite sans librairie.
+   Le défilement inertiel (Lenis chez eux) a été écarté : il fige la page
+   dans un contexte embarqué et prive l'utilisateur du défilement natif.
+   ============================================================ */
+
+/* 1. Panneaux : les grandes surfaces s'ouvrent depuis leur médiane. */
+(function(){
+  var cibles = document.querySelectorAll(".stats, .tool, .cta-band, .pupitre, .mapbox");
+  if (!cibles.length || reduced) return;
+  cibles.forEach(function(el){ el.classList.add("clip-rev"); });
+  var o = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add("on"); o.unobserve(e.target); }
+    });
+  }, { threshold: .18 });
+  cibles.forEach(function(el){ o.observe(el); });
+})();
+
+/* 2. Section épinglée : la progression du scroll dans le conteneur allume
+      les étapes une à une. Nul besoin de calcul si la section est hors champ. */
+(function(){
+  var wrap = document.querySelector(".pin-wrap");
+  if (!wrap || reduced) return;
+  wrap.classList.add("anime");   /* sans JS, aucune etape n'est masquee */
+  var etapes = wrap.querySelectorAll(".step");
+  var barre = wrap.querySelector(".pin-progress i");
+  if (!etapes.length) return;
+
+  function majPin(){
+    var r = wrap.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    /* progression 0→1 sur la portion réellement parcourue */
+    var course = Math.max(1, wrap.offsetHeight - innerHeight);
+    var p = Math.min(1, Math.max(0, -r.top / course));
+    /* on allume avec un peu d'avance pour que la dernière soit atteinte */
+    var atteintes = Math.round(p * (etapes.length + 0.4));
+    for (var i = 0; i < etapes.length; i++){
+      etapes[i].classList.toggle("lit", i < atteintes);
+    }
+    if (barre) barre.style.width = (p * 100).toFixed(1) + "%";
+  }
+  var tk = false;
+  addEventListener("scroll", function(){
+    if (tk) return; tk = true;
+    requestAnimationFrame(function(){ majPin(); tk = false; });
+  }, { passive: true });
+  addEventListener("resize", majPin);
+  majPin();
+})();
+
 /* ---------- compteurs des bandeaux de preuve ---------- */
 var fmt = new Intl.NumberFormat("fr-FR");
 var counters = document.querySelectorAll("[data-count]");

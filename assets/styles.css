@@ -481,3 +481,53 @@ nav.main a[aria-current]{ background:var(--brand-soft); color:var(--brand) }
 .quote{ position:relative }
 .quote p{ font-size:15.5px; line-height:1.68 }
 .quote footer{ margin-top:auto; padding-top:8px }
+
+/* ==========================================================================
+   PARALLAXE — grammaire empruntée à caeli-energie.com, sans librairie.
+   Trois dispositifs : panneaux qui s'ouvrent, section épinglée, inertie.
+   ========================================================================== */
+
+/* 1. Le panneau s'ouvre depuis sa ligne médiane quand on arrive dessus.
+      C'est le geste signature : la matière se révèle au lieu d'apparaître. */
+.clip-rev{
+  clip-path:inset(48% 0% 48% 0% round 30px);
+  transition:clip-path 1.15s cubic-bezier(.22,.61,.36,1);
+  will-change:clip-path;
+}
+.clip-rev.on{ clip-path:inset(0% 0% 0% 0% round 30px) }
+
+/* 2. Section épinglée : le conteneur fait plusieurs hauteurs d'écran,
+      l'intérieur reste collé — le contenu se construit pendant la descente. */
+.pin-wrap{ position:relative; padding:0 }
+.pin-inner{
+  position:sticky; top:0; min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(80px,10vh,120px) 0;
+}
+/* Les étapes s'allument l'une après l'autre au fil de la progression */
+.pin-wrap.anime .step{
+  opacity:.25; transform:translateY(14px);
+  transition:opacity .55s ease, transform .55s cubic-bezier(.22,.61,.36,1), border-color .55s ease;
+}
+.pin-wrap.anime .step.lit{ opacity:1; transform:none; border-color:var(--brand) }
+.pin-progress{
+  height:2px; background:var(--line); border-radius:2px; margin-top:34px; overflow:hidden;
+}
+.pin-progress i{
+  display:block; height:100%; width:0%; background:var(--accent);
+  transition:width .25s linear;
+}
+
+@media (max-width:980px){
+  /* Sur mobile, l'épinglage coûte plus qu'il ne rapporte : on déroule. */
+  .pin-wrap{ height:auto !important }
+  .pin-inner{ position:static; min-height:0; padding:clamp(56px,8vw,90px) 0 }
+  .pin-wrap.anime .step{ opacity:1; transform:none }
+  .pin-progress{ display:none }
+}
+@media (prefers-reduced-motion: reduce){
+  .clip-rev,.clip-rev.on{ clip-path:none; transition:none }
+  .pin-wrap{ height:auto !important }
+  .pin-inner{ position:static; min-height:0 }
+  .pin-wrap.anime .step{ opacity:1; transform:none; transition:none }
+}

@@ -240,7 +240,8 @@
 </section>
 
 <!-- ======================= MÉTHODE ======================= -->
-<section id="methode">
+<section id="methode" class="pin-wrap" style="height:300vh">
+  <div class="pin-inner">
   <span class="ghost" data-plx="-0.14" aria-hidden="true">Mesure</span>
   <div class="wrap">
     <div class="sec-head rv">
@@ -256,6 +257,8 @@
       <div class="step rv"><h3>Production</h3><p>Fabrication sur notre site d'une capacité de 30 000 ventilateurs par an.</p></div>
       <div class="step rv"><h3>Livraison &amp; suivi</h3><p>Livraison partout en France, accompagnement dans la durée.</p></div>
     </div>
+    <div class="pin-progress" aria-hidden="true"><i></i></div>
+  </div>
   </div>
 </section>
 
@@ -605,6 +608,51 @@ document.getElementById("devisForm").addEventListener("submit", function(e){
     + "?subject=" + encodeURIComponent("Demande de devis — " + (f.nom.value || "site web"))
     + "&body=" + encodeURIComponent((f.message.value||"") + "\n\nContact : " + (f.email.value||""));
 });
+
+/* ============================================================
+   PARALLAXE — grammaire caeli-energie.com, sans librairie :
+   panneaux qui s'ouvrent, section epinglee. Pas de defilement inertiel :
+   il fige la page en contexte embarque (iframe) et casse le natif.
+   ============================================================ */
+
+/* 1. Panneaux : les grandes surfaces s'ouvrent depuis leur mediane */
+(function(){
+  var cibles = document.querySelectorAll(".stats, .tool, .pupitre, .mapbox");
+  if (!cibles.length || reduced) return;
+  cibles.forEach(function(el){ el.classList.add("clip-rev"); });
+  var o = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add("on"); o.unobserve(e.target); }
+    });
+  }, { threshold: .18 });
+  cibles.forEach(function(el){ o.observe(el); });
+})();
+
+/* 2. Sequence epinglee : la progression allume les etapes une a une */
+(function(){
+  var wrap = document.querySelector(".pin-wrap");
+  if (!wrap || reduced) return;
+  wrap.classList.add("anime");   /* sans JS, aucune etape n'est masquee */
+  var etapes = wrap.querySelectorAll(".step");
+  var barre = wrap.querySelector(".pin-progress i");
+  if (!etapes.length) return;
+  function majPin(){
+    var r = wrap.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    var course = Math.max(1, wrap.offsetHeight - innerHeight);
+    var p = Math.min(1, Math.max(0, -r.top / course));
+    var atteintes = Math.round(p * (etapes.length + 0.4));
+    for (var i = 0; i < etapes.length; i++) etapes[i].classList.toggle("lit", i < atteintes);
+    if (barre) barre.style.width = (p * 100).toFixed(1) + "%";
+  }
+  var tk = false;
+  addEventListener("scroll", function(){
+    if (tk) return; tk = true;
+    requestAnimationFrame(function(){ majPin(); tk = false; });
+  }, { passive: true });
+  addEventListener("resize", majPin);
+  majPin();
+})();
 
 /* ============================================================
    LE SOUFFLE — même nappe d'air que les pages intérieures, pour
