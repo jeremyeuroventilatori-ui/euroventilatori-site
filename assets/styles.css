@@ -443,3 +443,41 @@ nav.main a[aria-current]{ background:var(--brand-soft); color:var(--brand) }
 @media (max-width:560px){
   .proof-grid{ grid-template-columns:1fr }
 }
+
+/* ==========================================================================
+   MANIFESTE — la respiration éditoriale au milieu de la page.
+   Aucune carte, aucun fond : juste de la typographie et du vide. C'est ce
+   contraste qui empêche la page de se lire comme un catalogue de blocs.
+   ========================================================================== */
+.manifeste{ padding:clamp(70px,11vw,150px) 0 }
+.manifeste .wrap{ display:flex; flex-direction:column; gap:clamp(22px,3vw,34px) }
+.manifeste-annee{
+  font-family:Consolas,monospace; font-size:12.5px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--muted);
+  display:flex; align-items:center; gap:16px;
+}
+.manifeste-annee::after{
+  content:""; flex:1; height:1px; max-width:220px;
+  background:linear-gradient(90deg, var(--accent), transparent);
+}
+.manifeste-txt{
+  font-family:Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif;
+  font-size:clamp(26px,4vw,50px); line-height:1.16; letter-spacing:.005em;
+  max-width:20ch; text-wrap:balance; color:var(--ink);
+}
+.manifeste-txt b{ font-weight:inherit; color:var(--brand) }
+.manifeste-txt em{ font-style:normal; color:var(--accent) }
+.manifeste-note{
+  font-size:15.5px; color:var(--muted); max-width:48ch; line-height:1.65;
+  border-left:2px solid var(--line); padding-left:20px;
+}
+
+/* Témoignages : filet d'accent en tête de carte, respiration interne */
+.quote{ padding-top:30px }
+.quote::before{
+  content:""; position:absolute; top:0; left:26px; right:26px; height:2px;
+  background:linear-gradient(90deg, var(--accent), transparent);
+}
+.quote{ position:relative }
+.quote p{ font-size:15.5px; line-height:1.68 }
+.quote footer{ margin-top:auto; padding-top:8px }
