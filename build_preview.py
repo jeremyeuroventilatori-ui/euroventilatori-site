@@ -71,12 +71,15 @@ footer = entre(index, '<footer class="site">', "</footer>")
 script_index = dedans(index, "<script>\n(function(){", "</script>")
 accueil = index[index.index("</header>") + len("</header>"):
                 index.index('<footer class="site">')]
+# L'accueil a son propre <main id="contenu"> ; l'apercu fournit le sien,
+# on retire donc l'enveloppe pour ne pas imbriquer deux reperes <main>.
+accueil = re.sub(r'</?main[^>]*>', "", accueil)
 
 # --- Composition des pages -------------------------------------------------
 blocs = ['<div class="pv-page" data-page="index" data-nav="">%s</div>' % accueil]
 for slug, _ in PAGES[1:]:
     src = lire(slug)
-    main = dedans(src, "<main>", "</main>")
+    main = dedans(src, '<main id="contenu">', "</main>")
     # La rubrique de menu à surligner est déjà calculée par gen_pages.py :
     # on la relit dans l'en-tête de la page plutôt que de la redéclarer ici.
     m = re.search(r'<a href="/([^"]*)"[^>]*aria-current="page"', dedans(src, "<header>", "</header>"))
@@ -136,7 +139,8 @@ doc = (
     'intervention partout en France depuis la région lyonnaise.">\n'
     "<style>\n" + css + CSS_APERCU + "\n</style>\n"
     '<canvas id="airCanvas" aria-hidden="true"></canvas>\n'
-    + router_liens(header) + "\n<main>\n"
+    '<a class="skip-link" href="#contenu">Aller au contenu</a>\n'
+    + router_liens(header) + '\n<main id="contenu">\n'
     + router_liens(pages_html) + "\n</main>\n"
     + router_liens(footer) + "\n"
     "<script>\n(function(){" + script_index + ROUTEUR + "\n</script>\n"

@@ -28,13 +28,13 @@ def nav_html(active_url):
     <a class="logo" href="/" aria-label="Euroventilatori France — accueil">
       <b>EUROVENTILATORI</b><span>FRANCE</span>
     </a>
-    <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">☰</button>
     <nav class="main" id="mainNav" aria-label="Navigation principale">
 """ + "\n".join(links) + """
     </nav>
     <div class="hd-cta">
       <a class="tel" href="tel:0474436838">04 74 43 68 38</a>
-      <button id="themeBtn" aria-label="Basculer le thème clair / sombre">◐</button>
+      <button id="themeBtn" aria-label="Basculer le thème clair / sombre" aria-pressed="false">◐</button>
     </div>
   </div>
 </header>"""
@@ -121,7 +121,7 @@ FOOTER = """<footer class="site">
         <p class="mono" style="opacity:.6;font-size:12px;margin-top:10px">150 Rue du Vernay<br>38300 Nivolas-Vermelle</p>
       </div>
       <div>
-        <h4>Produits</h4>
+        <h3>Produits</h3>
         <a href="/ventilateurs">Nos ventilateurs</a>
         <a href="/ventilateur-gamme">Ventilateurs de gamme</a>
         <a href="/ventilateur-sur-mesure">Ventilateurs sur mesure</a>
@@ -130,7 +130,7 @@ FOOTER = """<footer class="site">
         <a href="/nos-autres-accessoires">Accessoires</a>
       </div>
       <div>
-        <h4>Entreprise</h4>
+        <h3>Entreprise</h3>
         <a href="/qui-sommes-nous">Qui sommes-nous ?</a>
         <a href="/bureau-etudes">Bureau d'études</a>
         <a href="/competences">Compétences</a>
@@ -138,7 +138,7 @@ FOOTER = """<footer class="site">
         <a href="/actualites">Actualités</a>
       </div>
       <div>
-        <h4>Ressources</h4>
+        <h3>Ressources</h3>
         <a href="/solutions-ventilateur-industriel">Solutions</a>
         <a href="/telechargement">Téléchargement &amp; LiveCurve</a>
         <a href="/contact">Contact &amp; devis</a>
@@ -183,8 +183,9 @@ TPL = """<!doctype html>
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 {nav}
-<main>
+<main id="contenu">
 {breadcrumb}
 <section class="hero-lite">
   <span class="ghost" data-plx="-0.14" aria-hidden="true">{ghost}</span>

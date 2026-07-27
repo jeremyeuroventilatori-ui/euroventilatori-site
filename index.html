@@ -40,6 +40,7 @@
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <!-- ======================= HEADER ======================= -->
 <header>
@@ -47,7 +48,7 @@
     <a class="logo" href="#top" aria-label="Euroventilatori France — accueil">
       <b>EUROVENTILATORI</b><span>FRANCE</span>
     </a>
-    <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">☰</button>
     <nav class="main" id="mainNav" aria-label="Navigation principale">
       <a href="/ventilateurs">Nos produits</a>
       <a href="/solutions-ventilateur-industriel">Solutions</a>
@@ -58,10 +59,12 @@
     </nav>
     <div class="hd-cta">
       <a class="tel" href="tel:0474436838">04 74 43 68 38</a>
-      <button id="themeBtn" aria-label="Basculer le thème clair / sombre">◐</button>
+      <button id="themeBtn" aria-label="Basculer le thème clair / sombre" aria-pressed="false">◐</button>
     </div>
   </div>
 </header>
+
+<main id="contenu">
 
 <!-- ======================= HERO ======================= -->
 <section class="hero" id="top">
@@ -215,16 +218,16 @@
     <div class="pupitre rv">
       <div class="controls">
         <div class="ctrl">
-          <label for="qRange">Débit <output id="qOut">10 000 m³/h</output></label>
+          <label for="qRange">Débit <output id="qOut" aria-live="polite">10 000 m³/h</output></label>
           <input type="range" id="qRange" min="0" max="1000" value="500" aria-label="Débit d'air en mètres cubes par heure">
         </div>
         <div class="ctrl">
-          <label for="pRange">Pression <output id="pOut">2 000 Pa</output></label>
+          <label for="pRange">Pression <output id="pOut" aria-live="polite">2 000 Pa</output></label>
           <input type="range" id="pRange" min="0" max="1000" value="480" aria-label="Pression statique en pascals">
         </div>
         <div class="readout">
           <span class="fam-pill" id="famPill">Moyenne pression</span>
-          <div class="row"><span>Puissance estimée</span><b id="pwOut">— kW</b></div>
+          <div class="row"><span>Puissance estimée</span><b id="pwOut" aria-live="polite">— kW</b></div>
           <div class="row"><span>Rendement retenu</span><b>η = 0,72 (hyp.)</b></div>
           <p class="formule">P&nbsp;=&nbsp;Q·Δp&nbsp;/&nbsp;η&nbsp;&nbsp;·&nbsp;&nbsp;Q&nbsp;en&nbsp;m³/s,&nbsp;Δp&nbsp;en&nbsp;Pa<br>
             Estimation indicative — la sélection finale intègre densité, température,
@@ -326,6 +329,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- ======================= FOOTER ======================= -->
 <footer class="site">
   <div class="wrap">
@@ -338,7 +343,7 @@
         <p class="mono" style="opacity:.6;font-size:12px;margin-top:10px">150 Rue du Vernay<br>38300 Nivolas-Vermelle</p>
       </div>
       <div>
-        <h4>Produits</h4>
+        <h3>Produits</h3>
         <a href="/ventilateurs">Nos ventilateurs</a>
         <a href="/ventilateur-gamme">Ventilateurs de gamme</a>
         <a href="/ventilateur-sur-mesure">Ventilateurs sur mesure</a>
@@ -347,7 +352,7 @@
         <a href="/nos-autres-accessoires">Accessoires</a>
       </div>
       <div>
-        <h4>Entreprise</h4>
+        <h3>Entreprise</h3>
         <a href="/qui-sommes-nous">Qui sommes-nous ?</a>
         <a href="/bureau-etudes">Bureau d'études</a>
         <a href="/competences">Compétences</a>
@@ -355,7 +360,7 @@
         <a href="/actualites">Actualités</a>
       </div>
       <div>
-        <h4>Ressources</h4>
+        <h3>Ressources</h3>
         <a href="/solutions-ventilateur-industriel">Solutions</a>
         <a href="/telechargement">Téléchargement &amp; LiveCurve</a>
         <a href="#selecteur">Outil de sélection</a>
@@ -383,11 +388,19 @@ var root = document.documentElement;
 function tok(name){ return getComputedStyle(root).getPropertyValue(name).trim(); }
 
 /* ---------- thème ---------- */
-document.getElementById("themeBtn").addEventListener("click", function(){
-  var dark = root.getAttribute("data-theme") === "dark" ||
-    (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
-  root.setAttribute("data-theme", dark ? "light" : "dark");
-});
+(function(){
+  var btn = document.getElementById("themeBtn");
+  function sombreActif(){
+    return root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  btn.setAttribute("aria-pressed", sombreActif() ? "true" : "false");
+  btn.addEventListener("click", function(){
+    var versClair = sombreActif();
+    root.setAttribute("data-theme", versClair ? "light" : "dark");
+    btn.setAttribute("aria-pressed", versClair ? "false" : "true");
+  });
+})();
 
 /* ---------- burger ---------- */
 var burger = document.getElementById("burger"), nav = document.getElementById("mainNav");

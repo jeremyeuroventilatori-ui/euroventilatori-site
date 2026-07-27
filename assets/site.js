@@ -9,11 +9,20 @@ function tok(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
 
 /* ---------- thème ---------- */
 var themeBtn = document.getElementById("themeBtn");
-if (themeBtn) themeBtn.addEventListener("click", function () {
-  var dark = root.getAttribute("data-theme") === "dark" ||
-    (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
-  root.setAttribute("data-theme", dark ? "light" : "dark");
-});
+if (themeBtn) {
+  var sombreActif = function () {
+    return root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+  };
+  /* Le bouton expose son etat : sans cela, un lecteur d'ecran annonce un
+     bouton sans indiquer le theme en cours (WCAG 4.1.2). */
+  themeBtn.setAttribute("aria-pressed", sombreActif() ? "true" : "false");
+  themeBtn.addEventListener("click", function () {
+    var versClair = sombreActif();
+    root.setAttribute("data-theme", versClair ? "light" : "dark");
+    themeBtn.setAttribute("aria-pressed", versClair ? "false" : "true");
+  });
+}
 
 /* ---------- menu mobile ---------- */
 var burger = document.getElementById("burger"), nav = document.getElementById("mainNav");
