@@ -85,7 +85,7 @@ ORG_JSONLD = """{
 }"""
 
 # Bandeau de preuves — chiffres relevés sur le site actuel, tous vérifiés.
-PROOF = """<section class="proof">
+PROOF = """<section class="proof band-alt">
   <div class="wrap">
     <div class="proof-grid">
       <div class="proof-item rv"><span class="n"><span data-count="35">0</span><i>ans</i></span><span class="l">d'expertise en France</span></div>
@@ -103,7 +103,7 @@ def related_html(cards):
     items = "".join(
         f'<a href="{u}"><strong>{t}</strong><span>{d}</span>'
         f'<span class="go">Consulter →</span></a>' for u, t, d in cards)
-    return f"""<section class="related">
+    return f"""<section class="related band-alt">
   <div class="wrap">
     <h2>À consulter également</h2>
     <div class="related-grid">{items}</div>
