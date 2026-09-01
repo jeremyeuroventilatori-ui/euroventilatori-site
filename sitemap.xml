@@ -22,4 +22,6 @@
   <url><loc>https://www.euroventilatori.fr/telechargement</loc><priority>0.8</priority></url>
   <url><loc>https://www.euroventilatori.fr/contact</loc><priority>0.8</priority></url>
   <url><loc>https://www.euroventilatori.fr/actualites</loc><priority>0.8</priority></url>
+  <url><loc>https://www.euroventilatori.fr/mentions-legales</loc><priority>0.3</priority></url>
+  <url><loc>https://www.euroventilatori.fr/vie-privee</loc><priority>0.3</priority></url>
 </urlset>

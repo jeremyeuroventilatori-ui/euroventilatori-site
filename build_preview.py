@@ -36,6 +36,8 @@ PAGES = [
     ("telechargement", "Téléchargement"),
     ("contact", "Contact"),
     ("actualites", "Actualités"),
+    ("mentions-legales", "Mentions légales"),
+    ("vie-privee", "Vie privée"),
 ]
 SLUGS = {s for s, _ in PAGES}
 

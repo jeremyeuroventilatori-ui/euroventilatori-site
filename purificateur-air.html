@@ -66,7 +66,46 @@
  ]
 }
 </script>
-
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "À quoi sert un caisson de filtration statique ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Il retient les particules présentes dans l'air aspiré ou soufflé par le ventilateur. Il protège ainsi le process, les produits et les opérateurs, et limite l'encrassement de la roue qui déséquilibrerait la machine à terme."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Comment choisir le niveau de filtration ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Le choix dépend de la taille des particules à retenir et de l'exigence du process : une simple préfiltration pour protéger une machine, une filtration fine pour un atelier propre, une filtration haute efficacité en laboratoire ou en salle propre."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "À quelle fréquence changer les filtres ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "La fréquence dépend de l'empoussièrement réel. Le repère fiable est la perte de charge : un filtre colmaté fait chuter le débit et augmenter la consommation. Un manomètre différentiel permet de déclencher le remplacement au bon moment plutôt qu'à date fixe."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "La filtration permet-elle de traiter les odeurs ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "La filtration particulaire seule ne traite pas les odeurs. Leur maîtrise relève d'une approche combinant le type de média, le dimensionnement du rejet et parfois un traitement spécifique, à étudier selon la nature des composés en cause."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
@@ -140,7 +179,15 @@ poussières, odeurs et polluants.</p>
     </div>
   </div>
 </section>
-
+<section class="faq band-alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Ce que l'on nous demande le plus souvent</h2>
+    </div>
+    <div class="faq-list"><div class="faq-item"><h3>À quoi sert un caisson de filtration statique ?</h3><p>Il retient les particules présentes dans l'air aspiré ou soufflé par le ventilateur. Il protège ainsi le process, les produits et les opérateurs, et limite l'encrassement de la roue qui déséquilibrerait la machine à terme.</p></div><div class="faq-item"><h3>Comment choisir le niveau de filtration ?</h3><p>Le choix dépend de la taille des particules à retenir et de l'exigence du process : une simple préfiltration pour protéger une machine, une filtration fine pour un atelier propre, une filtration haute efficacité en laboratoire ou en salle propre.</p></div><div class="faq-item"><h3>À quelle fréquence changer les filtres ?</h3><p>La fréquence dépend de l'empoussièrement réel. Le repère fiable est la perte de charge : un filtre colmaté fait chuter le débit et augmenter la consommation. Un manomètre différentiel permet de déclencher le remplacement au bon moment plutôt qu'à date fixe.</p></div><div class="faq-item"><h3>La filtration permet-elle de traiter les odeurs ?</h3><p>La filtration particulaire seule ne traite pas les odeurs. Leur maîtrise relève d'une approche combinant le type de média, le dimensionnement du rejet et parfois un traitement spécifique, à étudier selon la nature des composés en cause.</p></div></div>
+  </div>
+</section>
 <section class="related band-alt">
   <div class="wrap">
     <h2>À consulter également</h2>
@@ -205,7 +252,7 @@ poussières, odeurs et polluants.</p>
       <span class="foot-legal">
         <a href="/mentions-legales">Mentions légales</a>
         <a href="/vie-privee">Vie privée</a>
-        <a href="/privacy">Cookies</a>
+        <a href="/vie-privee">Cookies</a>
       </span>
     </div>
   </div>

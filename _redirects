@@ -1,7 +1,7 @@
 # Redirections 301 — Cloudflare Pages
-# L'arborescence du nouveau site reprend les URL du site actuel À L'IDENTIQUE :
-# aucune redirection n'est donc nécessaire pour les 15 pages indexées.
-# Ne restent que les entrées de menu qui renvoyaient déjà 404 sur l'ancien site.
+# L'arborescence reprend les URL du site actuel a l'identique : seules les
+# pages reellement disparues sont redirigees.
 
 /outils    /telechargement   301
 /calculs   /telechargement   301
+/privacy   /vie-privee       301

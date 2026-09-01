@@ -188,7 +188,7 @@ FOOTER = """<footer class="site">
       <span class="foot-legal">
         <a href="/mentions-legales">Mentions légales</a>
         <a href="/vie-privee">Vie privée</a>
-        <a href="/privacy">Cookies</a>
+        <a href="/vie-privee">Cookies</a>
       </span>
     </div>
   </div>
@@ -927,6 +927,235 @@ P["bretagne.html"]["sections"] += [
     "Enfin, le <a href=\"/traitement-surface\">traitement de surface</a> tient compte de l'air marin : galvanisation à chaud ou inox selon l'exposition, jusqu'au choix de la visserie."]),
 ]
 
+
+# ===========================================================================
+# PAGES LEGALES — donnees d'identification reelles, redaction neuve.
+# ⚠️ A relire par la direction avant mise en ligne, et a confirmer le jour de
+# la bascule pour la section hebergeur.
+# ===========================================================================
+
+P["mentions-legales.html"] = dict(
+  title="Mentions légales | Euroventilatori France",
+  desc="Mentions légales du site euroventilatori.fr : identification de la société Euroventilatori France, directeur de publication, hébergement et propriété intellectuelle.",
+  h1="Mentions légales",
+  kicker="Informations légales",
+  ghost="Légal",
+  intro="""<p>Informations relatives à l'éditeur et à l'hébergeur du site
+<b>euroventilatori.fr</b>, publiées en application de la loi pour la confiance
+dans l'économie numérique.</p>""",
+  cta='<a class="btn ghost-b" href="/contact">Nous contacter</a>',
+  sections=[
+    ("Éditeur du site",
+     ["<b>Raison sociale :</b> Euroventilatori France<br>"
+      "<b>Forme juridique :</b> société à responsabilité limitée (SARL)<br>"
+      "<b>Capital social :</b> 50 000 €<br>"
+      "<b>RCS :</b> Vienne B 383 242 500<br>"
+      "<b>SIRET :</b> 383 242 500 00056<br>"
+      "<b>N° de TVA intracommunautaire :</b> FR92383242500",
+      "<b>Siège social :</b> 150 rue du Vernay, 38300 Nivolas-Vermelle, France<br>"
+      "<b>Téléphone :</b> <a href=\"tel:0474436838\">04 74 43 68 38</a><br>"
+      "<b>Adresse électronique :</b> <a href=\"mailto:contact@euroventilatori-france.com\">contact@euroventilatori-france.com</a>",
+      "<b>Directeur de la publication :</b> M. Mathieu Hollard.",
+      "L'établissement n'est pas concerné par le dispositif de médiation de la consommation, son activité s'adressant exclusivement à une clientèle professionnelle."]),
+    ("Hébergement du site",
+     ["<b>Hébergeur :</b> Cloudflare, Inc.<br>"
+      "<b>Adresse :</b> 101 Townsend Street, San Francisco, CA 94107, États-Unis<br>"
+      "<b>Site :</b> <a href=\"https://www.cloudflare.com\" rel=\"noopener\">www.cloudflare.com</a>",
+      "Le site est distribué depuis le réseau de serveurs de l'hébergeur, dont les points de présence européens assurent la diffusion des pages en France.",
+      "<i>Section à confirmer le jour de la mise en ligne : les informations d'hébergement doivent correspondre au prestataire effectivement retenu.</i>"]),
+    ("Propriété intellectuelle",
+     ["L'ensemble des éléments composant ce site — textes, mise en page, éléments graphiques, illustrations et développements — est protégé par le droit de la propriété intellectuelle et demeure la propriété d'Euroventilatori France, sauf mention contraire.",
+      "Toute reproduction, représentation, adaptation ou exploitation, totale ou partielle, par quelque procédé que ce soit et sur quelque support que ce soit, est interdite sans autorisation écrite préalable.",
+      "Les marques, dénominations sociales et logotypes cités appartiennent à leurs titulaires respectifs."]),
+    ("Responsabilité et liens",
+     ["Les informations techniques publiées sur ce site sont fournies à titre indicatif. Les caractéristiques des matériels, les valeurs de débit, de pression et de rendement sont susceptibles d'évoluer : seule une étude établie par notre bureau d'études engage la société.",
+      "Le site peut renvoyer vers des sites tiers dont Euroventilatori France ne maîtrise ni le contenu ni les pratiques, et dont elle ne saurait être tenue responsable.",
+      "Toute question relative au présent site peut être adressée à <a href=\"mailto:contact@euroventilatori-france.com\">contact@euroventilatori-france.com</a>."]),
+  ])
+
+P["vie-privee.html"] = dict(
+  title="Vie privée et protection des données | Euroventilatori France",
+  desc="Politique de protection des données personnelles d'Euroventilatori France : responsable du traitement, finalités, destinataires, durées de conservation et droits RGPD.",
+  h1="Vie privée et protection des données personnelles",
+  kicker="Protection des données — RGPD",
+  ghost="Données",
+  intro="""<p>Euroventilatori France traite des données personnelles dans le cadre
+de sa relation commerciale et des demandes reçues par ce site. Cette page décrit
+<b>ce qui est collecté, pourquoi, pour combien de temps</b>, et les droits dont
+vous disposez.</p>""",
+  cta='<a class="btn ghost-b" href="/contact">Exercer vos droits</a>',
+  sections=[
+    ("Responsable du traitement",
+     ["Le responsable du traitement est la société <b>Euroventilatori France</b>, SARL au capital de 50 000 €, dont le siège est situé 150 rue du Vernay, 38300 Nivolas-Vermelle.",
+      "Toute demande relative à vos données peut être adressée par courriel à <a href=\"mailto:contact@euroventilatori-france.com\">contact@euroventilatori-france.com</a> ou par courrier à l'adresse du siège."]),
+    ("Quelles données, et pour quelles finalités ?",
+     ["Les données collectées sont celles que vous nous transmettez volontairement : <b>nom, société, adresse électronique, numéro de téléphone</b> et les éléments techniques nécessaires à l'étude de votre besoin — débit, pression, nature du fluide, contraintes du site.",
+      "Elles servent exclusivement à <b>répondre à votre demande</b>, établir un devis, assurer le suivi de la relation commerciale et, le cas échéant, la gestion de la fourniture et du service après-vente.",
+      "Aucune donnée n'est collectée à des fins publicitaires, et le site ne procède à aucun profilage ni à aucune décision automatisée."]),
+    ("Qui accède à ces données ?",
+     ["Vos données sont accessibles aux seuls collaborateurs d'Euroventilatori France concernés par le traitement de votre demande : équipe technico-commerciale, bureau d'études, administration des ventes.",
+      "Elles peuvent être communiquées à des <b>sous-traitants techniques</b> agissant sur instruction — hébergement du site, service d'acheminement des courriels — tenus par contrat à la confidentialité et à la sécurité.",
+      "Elles ne sont ni vendues, ni louées, ni cédées à des tiers à des fins commerciales."]),
+    ("Combien de temps sont-elles conservées ?",
+     ["Les demandes n'ayant pas donné lieu à une relation commerciale sont conservées <b>trois ans</b> à compter du dernier contact.",
+      "Les données liées à une relation commerciale sont conservées pendant la durée de cette relation, puis archivées conformément aux obligations légales de conservation des documents comptables et contractuels.",
+      "Au-delà de ces durées, les données sont supprimées ou anonymisées."]),
+    ("Vos droits",
+     ["Conformément au règlement général sur la protection des données, vous disposez d'un droit d'<b>accès</b>, de <b>rectification</b>, d'<b>effacement</b>, de <b>limitation</b> et d'<b>opposition</b> au traitement, ainsi que d'un droit à la <b>portabilité</b> des données que vous nous avez fournies.",
+      "Ces droits s'exercent sur simple demande à <a href=\"mailto:contact@euroventilatori-france.com\">contact@euroventilatori-france.com</a>, accompagnée de tout élément permettant de vérifier votre identité. Une réponse vous est apportée dans un délai d'un mois.",
+      "En cas de désaccord persistant, vous pouvez introduire une réclamation auprès de la <b>Commission nationale de l'informatique et des libertés</b> (CNIL), 3 place de Fontenoy, 75007 Paris — <a href=\"https://www.cnil.fr\" rel=\"noopener\">www.cnil.fr</a>."]),
+    ("Cookies et mesure d'audience",
+     ["Ce site fonctionne sans cookie publicitaire et sans traceur tiers à des fins de ciblage.",
+      "Seuls peuvent être déposés les cookies strictement nécessaires au fonctionnement du site, qui ne requièrent pas votre consentement préalable, ainsi que, le cas échéant, une mesure d'audience configurée pour être exemptée de consentement.",
+      "<i>Section à ajuster à la mise en ligne selon les outils de mesure effectivement installés : toute solution non exemptée impose un bandeau de consentement préalable.</i>"]),
+  ])
+
+
+# --- Questions frequentes des pages initiales ------------------------------
+
+P["ventilateurs.html"]["faq"] = [
+  ("Quelle différence entre un ventilateur de gamme et un ventilateur sur mesure ?",
+   "Un ventilateur de gamme est un modèle préfabriqué du catalogue, disponible rapidement et éprouvé sur les applications courantes. Un ventilateur sur mesure est conçu pour un cahier des charges précis : fluide chargé, haute température, matériau spécial, encombrement imposé ou conformité ATEX."),
+  ("Comment savoir quel ventilateur convient à mon installation ?",
+   "Trois données suffisent pour orienter la sélection : le débit d'air recherché en m³/h, la pression statique du réseau en Pa, et la nature du fluide véhiculé. Les contraintes d'encombrement et le niveau sonore admissible affinent ensuite le choix."),
+  ("Quel est le délai pour obtenir un devis ?",
+   "Euroventilatori France s'engage sur un devis détaillé sous 24 heures, aussi bien pour un ventilateur de gamme que pour une machine sur mesure, dès lors que le point de fonctionnement est connu."),
+  ("Fournissez-vous aussi les accessoires et le traitement acoustique ?",
+   "Oui. L'offre couvre l'installation complète : caissons insonorisés, caissons de filtration, manchettes souples, registres et supports antivibratiles. Un ventilateur mal raccordé perd une partie de ses performances et transmet ses vibrations au bâtiment."),
+]
+
+P["ventilateur-gamme.html"]["faq"] = [
+  ("Combien de modèles compte le catalogue Euroventilatori ?",
+   "Le catalogue réunit 53 séries de machines, déclinées en 25 tailles, 16 orientations et 6 types d'arrangements, avec plusieurs matériaux possibles. Cette combinatoire couvre la grande majorité des besoins aérauliques industriels."),
+  ("Qu'est-ce que l'orientation et l'arrangement d'un ventilateur ?",
+   "L'orientation désigne la position de la sortie de la volute par rapport à l'aspiration, à choisir selon le sens du réseau. L'arrangement décrit le mode d'entraînement : accouplement direct, transmission par courroies ou moteur déporté lorsque la température l'impose."),
+  ("Un ventilateur de gamme est-il moins performant qu'une machine sur mesure ?",
+   "Non. Sur une application courante, un modèle de gamme correctement sélectionné atteint le même rendement qu'une machine dédiée, pour un coût et un délai inférieurs. Le sur-mesure ne se justifie que lorsque la gamme ne couvre pas la contrainte."),
+  ("Comment comparer deux modèles entre eux ?",
+   "La plateforme LiveCurve trace les courbes aérauliques de toute la gamme : en saisissant débit et pression, elle affiche les modèles capables de tenir ce point et le rendement de chacun. C'est le rendement au point d'usage, et non la puissance nominale, qui détermine la consommation."),
+]
+
+P["ventilateur-sur-mesure.html"]["faq"] = [
+  ("Dans quels cas faut-il un ventilateur sur mesure ?",
+   "Le sur-mesure s'impose quand la gamme ne couvre pas la contrainte : fluide chargé ou abrasif, température élevée, atmosphère explosible, matériau particulier, encombrement imposé, ou point de fonctionnement situé hors des plages standard."),
+  ("Combien de temps prend la conception d'une machine spéciale ?",
+   "Le devis détaillé est établi sous 24 heures. Le délai de conception et de fabrication dépend ensuite de la complexité de la machine et des matériaux retenus ; il est communiqué avec l'étude."),
+  ("Que faut-il fournir pour lancer une étude ?",
+   "Le point de fonctionnement visé (débit et pression), la nature et la température du fluide, les contraintes d'implantation et d'encombrement, le niveau sonore admissible, et le cas échéant la zone ATEX concernée."),
+  ("Une machine sur mesure est-elle réparable et maintenable ?",
+   "Oui. Les machines spéciales sont conçues à partir des composants et des principes de la gamme, ce qui garantit la disponibilité des pièces et la simplicité de la maintenance dans la durée."),
+]
+
+P["solutions-ventilateur-industriel.html"]["faq"] = [
+  ("Pourquoi ajouter un caisson de filtration à un ventilateur ?",
+   "Le caisson de filtration purifie l'air aspiré ou soufflé : il protège le process et les opérateurs, et évite l'encrassement rapide de la roue. Il ajoute toutefois une perte de charge qui doit être intégrée au dimensionnement du ventilateur dès l'origine."),
+  ("Peut-on insonoriser un ventilateur déjà installé ?",
+   "Oui, par caisson d'insonorisation ou par silencieux placés à l'aspiration et au refoulement. Traiter le bruit dès la sélection reste préférable : une grande roue tournant lentement est structurellement plus silencieuse qu'une petite roue rapide."),
+  ("Les accessoires sont-ils indispensables ?",
+   "Ils conditionnent la performance réelle. Une manchette souple isole la machine des contraintes du réseau, des supports antivibratiles évitent de transmettre les vibrations au bâtiment, un registre permet de régler le débit sans intervenir sur la machine."),
+  ("Fournissez-vous l'ensemble en un seul lot ?",
+   "Oui. Ventilateur, traitement acoustique, filtration et accessoires de raccordement peuvent être étudiés et fournis ensemble, ce qui garantit leur compatibilité et évite les pertes de charge non anticipées."),
+]
+
+P["caissons-insonorises.html"]["faq"] = [
+  ("Comment réduire le bruit d'un ventilateur industriel ?",
+   "Trois leviers se combinent : dimensionner la machine pour qu'elle tourne moins vite à débit égal, l'enfermer dans un caisson d'insonorisation, et poser des silencieux à l'aspiration et au refoulement. Les supports antivibratiles empêchent en outre la transmission des vibrations à la structure."),
+  ("De combien de décibels peut-on espérer réduire le niveau sonore ?",
+   "Le gain dépend de la machine, du spectre du bruit et de la solution retenue ; il ne se prédit pas de façon générale. C'est pourquoi l'atténuation attendue est calculée cas par cas, à partir du niveau mesuré ou estimé à la source."),
+  ("Un caisson d'insonorisation dégrade-t-il les performances ?",
+   "Il ajoute une perte de charge, qui doit être prise en compte au moment de la sélection du ventilateur. Intégrée dès l'étude, elle est sans conséquence ; ajoutée après coup à une machine déjà dimensionnée, elle réduit le débit obtenu."),
+  ("Quelle isolation est utilisée dans vos caissons ?",
+   "Les caissons sont isolés en laine de roche haute densité, un matériau incombustible qui conserve ses propriétés acoustiques dans le temps et supporte les ambiances industrielles."),
+]
+
+P["purificateur-air.html"]["faq"] = [
+  ("À quoi sert un caisson de filtration statique ?",
+   "Il retient les particules présentes dans l'air aspiré ou soufflé par le ventilateur. Il protège ainsi le process, les produits et les opérateurs, et limite l'encrassement de la roue qui déséquilibrerait la machine à terme."),
+  ("Comment choisir le niveau de filtration ?",
+   "Le choix dépend de la taille des particules à retenir et de l'exigence du process : une simple préfiltration pour protéger une machine, une filtration fine pour un atelier propre, une filtration haute efficacité en laboratoire ou en salle propre."),
+  ("À quelle fréquence changer les filtres ?",
+   "La fréquence dépend de l'empoussièrement réel. Le repère fiable est la perte de charge : un filtre colmaté fait chuter le débit et augmenter la consommation. Un manomètre différentiel permet de déclencher le remplacement au bon moment plutôt qu'à date fixe."),
+  ("La filtration permet-elle de traiter les odeurs ?",
+   "La filtration particulaire seule ne traite pas les odeurs. Leur maîtrise relève d'une approche combinant le type de média, le dimensionnement du rejet et parfois un traitement spécifique, à étudier selon la nature des composés en cause."),
+]
+
+P["nos-autres-accessoires.html"]["faq"] = [
+  ("Quels accessoires sont indispensables à une installation ?",
+   "Trois éléments reviennent presque toujours : la manchette souple, qui isole la machine des contraintes du réseau ; les supports antivibratiles, qui évitent de transmettre les vibrations au bâtiment ; et la grille de protection, qui sécurise l'aspiration."),
+  ("À quoi sert une manchette souple ?",
+   "Elle assure la liaison entre le ventilateur et la gaine tout en absorbant les mouvements et les vibrations. Sans elle, les efforts du réseau se reportent sur la machine et les vibrations se propagent dans toute l'installation."),
+  ("Peut-on régler le débit après installation ?",
+   "Oui, par registre ou par variateur de fréquence. Le registre est simple mais dissipe de l'énergie ; le variateur adapte la vitesse au besoin réel et réduit fortement la consommation, une baisse de 20 % de la vitesse divisant la puissance absorbée par deux environ."),
+  ("Fournissez-vous les pièces de rechange des machines anciennes ?",
+   "Les machines de la gamme partagent des composants communs, ce qui facilite l'approvisionnement en pièces dans la durée. Pour une machine ancienne ou spéciale, une identification préalable permet de déterminer les pièces disponibles ou reproductibles."),
+]
+
+P["bureau-etudes.html"]["faq"] = [
+  ("Que fait concrètement le bureau d'études ?",
+   "Il analyse le besoin réel — débit, pression, fluide, contraintes du site —, dimensionne la machine, réalise les plans d'implantation en CAO 2D et 3D, et vérifie la compatibilité avec l'installation existante avant lancement en fabrication."),
+  ("Quel logiciel utilisez-vous pour la conception ?",
+   "La conception est réalisée sous SolidWorks, en 2D et en 3D, ce qui permet de fournir des plans d'implantation exploitables et de valider les encombrements avant fabrication."),
+  ("Peut-on faire modifier un plan en cours de projet ?",
+   "Oui. L'adaptation des plans d'implantation en cours de projet fait partie du travail courant du bureau d'études, avec le nouveau dimensionnement correspondant lorsque la modification touche l'aéraulique."),
+  ("L'étude est-elle facturée ?",
+   "L'établissement du devis, y compris le dimensionnement associé, est réalisé sous 24 heures dans le cadre de la démarche commerciale. Les études approfondies liées à des projets spécifiques font l'objet d'un accord préalable."),
+]
+
+P["competences.html"]["faq"] = [
+  ("Quelles étapes maîtrisez-vous en interne ?",
+   "La chaîne est maîtrisée de bout en bout : conception et dimensionnement, fabrication, contrôles qualité avant expédition, puis livraison. Cette continuité est ce qui permet de tenir des délais et un niveau de qualité constants."),
+  ("Comment garantissez-vous la qualité des machines ?",
+   "De nombreux contrôles sont réalisés avant expédition du matériel, afin d'assurer une qualité constante. Le centre d'essais permet en outre de valider techniquement les performances annoncées."),
+  ("Quelle est la capacité de production du groupe ?",
+   "Le groupe produit jusqu'à 30 000 ventilateurs industriels par an, sur un site de 28 000 m², et distribue dans le monde entier."),
+  ("Depuis quand le groupe existe-t-il ?",
+   "Euroventilatori a été fondée en Italie en 1981 et cumule plus de quarante ans d'expérience dans la conception et la fabrication de ventilateurs axiaux, centrifuges et spéciaux. Euroventilatori France s'appuie sur ce savoir-faire depuis 35 ans."),
+]
+
+P["qui-sommes-nous.html"]["faq"] = [
+  ("Où se situe Euroventilatori France ?",
+   "Euroventilatori France est implantée au 150 rue du Vernay, à Nivolas-Vermelle, en Isère, à proximité de Lyon. La société intervient dans toute la France."),
+  ("Euroventilatori France fait-elle partie d'un groupe ?",
+   "Oui. La maison mère italienne, fondée en 1981, conçoit et fabrique des ventilateurs axiaux, centrifuges et spéciaux depuis plus de quarante ans. Euroventilatori France s'appuie sur cette capacité industrielle avec une équipe et un bureau d'études français."),
+  ("Quelle est la capacité de production ?",
+   "Le site de production couvre 28 000 m² et fabrique jusqu'à 30 000 ventilateurs industriels par an, distribués dans le monde entier."),
+  ("Quels secteurs industriels servez-vous ?",
+   "Les principaux domaines servis sont l'énergie et la pétrochimie, l'industrie agroalimentaire, la métallurgie et l'industrie textile, auxquels s'ajoutent la chimie, le papier-carton, le bois et l'agriculture."),
+]
+
+P["secteurs-activite.html"]["faq"] = [
+  ("Quels secteurs industriels équipez-vous ?",
+   "Les principaux sont l'énergie et la pétrochimie, l'agroalimentaire, la métallurgie et le textile. S'y ajoutent la chimie, la plasturgie, le papier-carton, le bois, la cimenterie et l'agriculture."),
+  ("Pourquoi le secteur d'activité change-t-il le choix du ventilateur ?",
+   "Parce qu'il détermine la nature du fluide et l'ambiance : poussières abrasives en métallurgie, vapeurs grasses et exigence d'hygiène en agroalimentaire, atmosphère explosible en pétrochimie, fibres en textile. Chacun impose un type de roue, un matériau et un traitement de surface différents."),
+  ("Proposez-vous des machines conformes ATEX ?",
+   "Oui. Une machine destinée à une atmosphère explosible est conçue pour cela dès l'origine, avec des matériaux anti-étincelants, des jeux maîtrisés et un moteur certifié correspondant à la zone."),
+  ("Intervenez-vous sur des installations existantes ?",
+   "Oui. Le remplacement d'une machine en place commence par le relevé du point de fonctionnement réel, souvent différent de la plaque signalétique, afin de ne pas reproduire un sous-dimensionnement ancien."),
+]
+
+P["telechargement.html"]["faq"] = [
+  ("Qu'est-ce que LiveCurve ?",
+   "LiveCurve est la plateforme de simulation développée par Euroventilatori. Elle trace les courbes aérauliques de la gamme : en modifiant les données d'entrée, elle affiche les modèles capables de tenir le point de fonctionnement et le rendement de chacun."),
+  ("Faut-il un compte pour utiliser LiveCurve ?",
+   "Les modalités d'accès sont indiquées sur la plateforme. Nos technico-commerciaux peuvent également réaliser la simulation avec vous et vous transmettre la sélection commentée."),
+  ("Une simulation remplace-t-elle une étude ?",
+   "Non. La simulation oriente vers les modèles pertinents ; la sélection définitive intègre la densité de l'air, la température, la vitesse et le niveau sonore, et fait l'objet d'une validation par nos équipes."),
+  ("Où trouver les fiches techniques des produits ?",
+   "Les documentations et fiches techniques sont mises à disposition dans l'espace de téléchargement. Pour un document précis ou une machine ancienne, la demande peut être adressée à notre équipe."),
+]
+
+P["contact.html"]["faq"] = [
+  ("Quelles informations transmettre pour obtenir un devis rapidement ?",
+   "Le débit recherché en m³/h, la pression statique en Pa et la nature du fluide véhiculé suffisent à démarrer. En précisant l'encombrement disponible et le niveau sonore admissible, la proposition est directement exploitable."),
+  ("Sous quel délai obtient-on une réponse ?",
+   "Euroventilatori France s'engage sur un devis détaillé sous 24 heures, pour un ventilateur de gamme comme pour une machine sur mesure."),
+  ("Je ne connais pas mon débit ni ma pression : que faire ?",
+   "Décrivez l'application, le volume du local ou le process concerné, ainsi que la machine en place le cas échéant. Nos technico-commerciaux reconstituent le besoin, et un relevé sur site peut être organisé lorsque l'installation existe déjà."),
+  ("Intervenez-vous partout en France ?",
+   "Oui. La fabrication est réalisée dans notre atelier de Nivolas-Vermelle, en Isère, et la livraison couvre l'ensemble du territoire, sans différence d'engagement selon la région."),
+]
+
 # ---------------------------------------------------------------------------
 # Métadonnées de navigation, par page :
 #   nav      → entrée de menu à surligner
@@ -1026,6 +1255,12 @@ META = {
                                             related=["centri","surface","secteurs"]),
  "bretagne.html":                      dict(nav="/secteurs-activite", trail=[("Bretagne", None)],
                                             related=["helico","surface","secteurs"]),
+
+ # Pages légales : ni bandeau de preuves, ni argumentaire commercial
+ "mentions-legales.html":              dict(nav="", trail=[("Mentions légales", None)], proof=False,
+                                            related=["contact","qui"]),
+ "vie-privee.html":                    dict(nav="", trail=[("Vie privée", None)], proof=False,
+                                            related=["contact","qui"]),
 }
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))

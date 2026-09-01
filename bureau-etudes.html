@@ -60,7 +60,46 @@
  ]
 }
 </script>
-
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Que fait concrètement le bureau d'études ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Il analyse le besoin réel — débit, pression, fluide, contraintes du site —, dimensionne la machine, réalise les plans d'implantation en CAO 2D et 3D, et vérifie la compatibilité avec l'installation existante avant lancement en fabrication."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Quel logiciel utilisez-vous pour la conception ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "La conception est réalisée sous SolidWorks, en 2D et en 3D, ce qui permet de fournir des plans d'implantation exploitables et de valider les encombrements avant fabrication."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Peut-on faire modifier un plan en cours de projet ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Oui. L'adaptation des plans d'implantation en cours de projet fait partie du travail courant du bureau d'études, avec le nouveau dimensionnement correspondant lorsque la modification touche l'aéraulique."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "L'étude est-elle facturée ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "L'établissement du devis, y compris le dimensionnement associé, est réalisé sous 24 heures dans le cadre de la démarche commerciale. Les études approfondies liées à des projets spécifiques font l'objet d'un accord préalable."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
@@ -133,7 +172,15 @@ silencieux, plus résistants et moins énergivores — sur logiciels de CAO 2D e
     </div>
   </div>
 </section>
-
+<section class="faq band-alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Ce que l'on nous demande le plus souvent</h2>
+    </div>
+    <div class="faq-list"><div class="faq-item"><h3>Que fait concrètement le bureau d'études ?</h3><p>Il analyse le besoin réel — débit, pression, fluide, contraintes du site —, dimensionne la machine, réalise les plans d'implantation en CAO 2D et 3D, et vérifie la compatibilité avec l'installation existante avant lancement en fabrication.</p></div><div class="faq-item"><h3>Quel logiciel utilisez-vous pour la conception ?</h3><p>La conception est réalisée sous SolidWorks, en 2D et en 3D, ce qui permet de fournir des plans d'implantation exploitables et de valider les encombrements avant fabrication.</p></div><div class="faq-item"><h3>Peut-on faire modifier un plan en cours de projet ?</h3><p>Oui. L'adaptation des plans d'implantation en cours de projet fait partie du travail courant du bureau d'études, avec le nouveau dimensionnement correspondant lorsque la modification touche l'aéraulique.</p></div><div class="faq-item"><h3>L'étude est-elle facturée ?</h3><p>L'établissement du devis, y compris le dimensionnement associé, est réalisé sous 24 heures dans le cadre de la démarche commerciale. Les études approfondies liées à des projets spécifiques font l'objet d'un accord préalable.</p></div></div>
+  </div>
+</section>
 <section class="related band-alt">
   <div class="wrap">
     <h2>À consulter également</h2>
@@ -198,7 +245,7 @@ silencieux, plus résistants et moins énergivores — sur logiciels de CAO 2D e
       <span class="foot-legal">
         <a href="/mentions-legales">Mentions légales</a>
         <a href="/vie-privee">Vie privée</a>
-        <a href="/privacy">Cookies</a>
+        <a href="/vie-privee">Cookies</a>
       </span>
     </div>
   </div>

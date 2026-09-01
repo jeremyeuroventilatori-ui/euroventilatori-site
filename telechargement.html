@@ -60,7 +60,46 @@
  ]
 }
 </script>
-
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Qu'est-ce que LiveCurve ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "LiveCurve est la plateforme de simulation développée par Euroventilatori. Elle trace les courbes aérauliques de la gamme : en modifiant les données d'entrée, elle affiche les modèles capables de tenir le point de fonctionnement et le rendement de chacun."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Faut-il un compte pour utiliser LiveCurve ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Les modalités d'accès sont indiquées sur la plateforme. Nos technico-commerciaux peuvent également réaliser la simulation avec vous et vous transmettre la sélection commentée."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Une simulation remplace-t-elle une étude ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Non. La simulation oriente vers les modèles pertinents ; la sélection définitive intègre la densité de l'air, la température, la vitesse et le niveau sonore, et fait l'objet d'une validation par nos équipes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Où trouver les fiches techniques des produits ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Les documentations et fiches techniques sont mises à disposition dans l'espace de téléchargement. Pour un document précis ou une machine ancienne, la demande peut être adressée à notre équipe."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
@@ -126,7 +165,15 @@ rendement selon débit, pression et température du fluide.</p>
     </div>
   </div>
 </section>
-
+<section class="faq band-alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Ce que l'on nous demande le plus souvent</h2>
+    </div>
+    <div class="faq-list"><div class="faq-item"><h3>Qu'est-ce que LiveCurve ?</h3><p>LiveCurve est la plateforme de simulation développée par Euroventilatori. Elle trace les courbes aérauliques de la gamme : en modifiant les données d'entrée, elle affiche les modèles capables de tenir le point de fonctionnement et le rendement de chacun.</p></div><div class="faq-item"><h3>Faut-il un compte pour utiliser LiveCurve ?</h3><p>Les modalités d'accès sont indiquées sur la plateforme. Nos technico-commerciaux peuvent également réaliser la simulation avec vous et vous transmettre la sélection commentée.</p></div><div class="faq-item"><h3>Une simulation remplace-t-elle une étude ?</h3><p>Non. La simulation oriente vers les modèles pertinents ; la sélection définitive intègre la densité de l'air, la température, la vitesse et le niveau sonore, et fait l'objet d'une validation par nos équipes.</p></div><div class="faq-item"><h3>Où trouver les fiches techniques des produits ?</h3><p>Les documentations et fiches techniques sont mises à disposition dans l'espace de téléchargement. Pour un document précis ou une machine ancienne, la demande peut être adressée à notre équipe.</p></div></div>
+  </div>
+</section>
 <section class="related band-alt">
   <div class="wrap">
     <h2>À consulter également</h2>
@@ -191,7 +238,7 @@ rendement selon débit, pression et température du fluide.</p>
       <span class="foot-legal">
         <a href="/mentions-legales">Mentions légales</a>
         <a href="/vie-privee">Vie privée</a>
-        <a href="/privacy">Cookies</a>
+        <a href="/vie-privee">Cookies</a>
       </span>
     </div>
   </div>

@@ -66,7 +66,46 @@
  ]
 }
 </script>
-
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Combien de modèles compte le catalogue Euroventilatori ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Le catalogue réunit 53 séries de machines, déclinées en 25 tailles, 16 orientations et 6 types d'arrangements, avec plusieurs matériaux possibles. Cette combinatoire couvre la grande majorité des besoins aérauliques industriels."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Qu'est-ce que l'orientation et l'arrangement d'un ventilateur ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "L'orientation désigne la position de la sortie de la volute par rapport à l'aspiration, à choisir selon le sens du réseau. L'arrangement décrit le mode d'entraînement : accouplement direct, transmission par courroies ou moteur déporté lorsque la température l'impose."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Un ventilateur de gamme est-il moins performant qu'une machine sur mesure ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Non. Sur une application courante, un modèle de gamme correctement sélectionné atteint le même rendement qu'une machine dédiée, pour un coût et un délai inférieurs. Le sur-mesure ne se justifie que lorsque la gamme ne couvre pas la contrainte."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Comment comparer deux modèles entre eux ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "La plateforme LiveCurve trace les courbes aérauliques de toute la gamme : en saisissant débit et pression, elle affiche les modèles capables de tenir ce point et le rendement de chacun. C'est le rendement au point d'usage, et non la puissance nominale, qui détermine la consommation."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
@@ -140,7 +179,15 @@ fonderies — même en environnement contraint.</p>
     </div>
   </div>
 </section>
-
+<section class="faq band-alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Ce que l'on nous demande le plus souvent</h2>
+    </div>
+    <div class="faq-list"><div class="faq-item"><h3>Combien de modèles compte le catalogue Euroventilatori ?</h3><p>Le catalogue réunit 53 séries de machines, déclinées en 25 tailles, 16 orientations et 6 types d'arrangements, avec plusieurs matériaux possibles. Cette combinatoire couvre la grande majorité des besoins aérauliques industriels.</p></div><div class="faq-item"><h3>Qu'est-ce que l'orientation et l'arrangement d'un ventilateur ?</h3><p>L'orientation désigne la position de la sortie de la volute par rapport à l'aspiration, à choisir selon le sens du réseau. L'arrangement décrit le mode d'entraînement : accouplement direct, transmission par courroies ou moteur déporté lorsque la température l'impose.</p></div><div class="faq-item"><h3>Un ventilateur de gamme est-il moins performant qu'une machine sur mesure ?</h3><p>Non. Sur une application courante, un modèle de gamme correctement sélectionné atteint le même rendement qu'une machine dédiée, pour un coût et un délai inférieurs. Le sur-mesure ne se justifie que lorsque la gamme ne couvre pas la contrainte.</p></div><div class="faq-item"><h3>Comment comparer deux modèles entre eux ?</h3><p>La plateforme LiveCurve trace les courbes aérauliques de toute la gamme : en saisissant débit et pression, elle affiche les modèles capables de tenir ce point et le rendement de chacun. C'est le rendement au point d'usage, et non la puissance nominale, qui détermine la consommation.</p></div></div>
+  </div>
+</section>
 <section class="related band-alt">
   <div class="wrap">
     <h2>À consulter également</h2>
@@ -205,7 +252,7 @@ fonderies — même en environnement contraint.</p>
       <span class="foot-legal">
         <a href="/mentions-legales">Mentions légales</a>
         <a href="/vie-privee">Vie privée</a>
-        <a href="/privacy">Cookies</a>
+        <a href="/vie-privee">Cookies</a>
       </span>
     </div>
   </div>
