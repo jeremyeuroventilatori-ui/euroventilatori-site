@@ -599,3 +599,21 @@ nav.main a[aria-current]{ background:var(--brand-soft); color:var(--brand) }
 
 /* Espacement vertical plus genereux, a la maniere du site de reference. */
 section{ padding:clamp(70px,8vw,116px) 0 }
+
+
+/* ==========================================================================
+   QUESTIONS FRÉQUENTES
+   Deux colonnes de questions-réponses. Chaque réponse est autoportante :
+   elle doit rester juste si un moteur la cite seule, hors de la page.
+   ========================================================================== */
+.faq-list{
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,38px);
+  position:relative; z-index:1;
+}
+.faq-item{ display:flex; flex-direction:column; gap:8px }
+.faq-item h3{
+  font-size:17px; font-weight:600; color:var(--ink);
+  padding-top:16px; border-top:1px solid var(--line);
+}
+.faq-item p{ color:var(--muted); font-size:15.5px; line-height:1.68 }
+@media (max-width:980px){ .faq-list{ grid-template-columns:1fr } }
