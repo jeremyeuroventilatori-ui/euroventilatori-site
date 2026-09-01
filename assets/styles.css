@@ -617,3 +617,9 @@ section{ padding:clamp(70px,8vw,116px) 0 }
 }
 .faq-item p{ color:var(--muted); font-size:15.5px; line-height:1.68 }
 @media (max-width:980px){ .faq-list{ grid-template-columns:1fr } }
+
+
+/* Liste des actualités : la date d'abord, comme dans un journal. */
+.related-grid.actus{ grid-template-columns:1fr 1fr }
+.related-grid.actus .go{ margin-top:0; margin-bottom:2px; order:-1 }
+@media (max-width:980px){ .related-grid.actus{ grid-template-columns:1fr } }

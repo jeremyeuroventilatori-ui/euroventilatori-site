@@ -14,6 +14,7 @@ NAV_ITEMS = [
     ("/secteurs-activite", "Secteurs"),
     ("/bureau-etudes", "Bureau d'études"),
     ("/telechargement", "Téléchargement"),
+    ("/actualites", "Actualités"),
     ("/contact", "Contact"),
 ]
 
@@ -274,6 +275,175 @@ def sec(h2, paras, chips=None):
     </div>
   </div>
 </section>"""
+
+
+# ===========================================================================
+# BLOG — articles depuis janvier 2026.
+# Les faits sont ceux de l'entreprise (dates, chiffres, evenements, produits) ;
+# la redaction est neuve.
+# ===========================================================================
+
+ARTICLES = []   # du plus recent au plus ancien
+
+def article(slug, date_iso, date_fr, titre, chapo, corps, desc):
+    ARTICLES.append(dict(slug=slug, date_iso=date_iso, date_fr=date_fr,
+                         titre=titre, chapo=chapo, corps=corps, desc=desc))
+
+def blogposting_jsonld(a):
+    import json
+    return ('<script type="application/ld+json">\n' + json.dumps({
+        "@context": "https://schema.org", "@type": "BlogPosting",
+        "headline": a["titre"], "datePublished": a["date_iso"],
+        "description": a["desc"],
+        "author": {"@type": "Organization", "name": "Euroventilatori France"},
+        "publisher": {"@type": "Organization", "name": "Euroventilatori France"},
+        "mainEntityOfPage": SITE + "/" + a["slug"]
+    }, ensure_ascii=False, indent=1) + "\n</script>")
+
+def autres_articles(courant, n=3):
+    """Trois autres publications, pour prolonger la lecture."""
+    autres = [a for a in ARTICLES if a["slug"] != courant][:n]
+    if not autres:
+        return ""
+    items = "".join(
+        '<a href="/%s"><strong>%s</strong><span>%s</span>'
+        '<span class="go">%s →</span></a>' % (a["slug"], a["titre"], a["desc"], a["date_fr"])
+        for a in autres)
+    return ('<section class="related band-alt">\n  <div class="wrap">\n'
+            '    <h2>Autres publications</h2>\n'
+            '    <div class="related-grid">%s</div>\n  </div>\n</section>' % items)
+
+
+# --- Publications, du plus recent au plus ancien ---------------------------
+
+article("belle-rentree-a-tous", "2026-09-01", "1er septembre 2026",
+  "Belle rentrée à tous&nbsp;!",
+  "Celle des cahiers neufs à la maison, et celle des ateliers qui retrouvent leur souffle.",
+  ["Septembre remet tout le monde en mouvement : les enfants ont repris le chemin de l'école ce matin, et les ateliers redémarrent après la coupure estivale.",
+   "Toute l'équipe d'Euroventilatori France vous souhaite une excellente rentrée — à vous, à vos équipes, et à celles et ceux qui ont fait leur rentrée des classes.",
+   "Bonne reprise à tous."],
+  "L'équipe Euroventilatori France vous souhaite une bonne rentrée.")
+
+article("fermeture-estivale", "2026-07-27", "27 juillet 2026",
+  "Fermeture estivale",
+  "Nos bureaux et ateliers seront fermés une semaine au mois d'août.",
+  ["Euroventilatori France sera fermée <b>du lundi 10 au vendredi 14 août inclus</b>.",
+   "Nous serons de retour le <b>lundi 17 août</b> pour traiter l'ensemble de vos demandes. Pensez à anticiper vos commandes si votre chantier ne peut pas attendre cette date.",
+   "Toute l'équipe vous souhaite un excellent été."],
+  "Euroventilatori France sera fermée du 10 au 14 août, retour le lundi 17 août.")
+
+article("on-recrute-notre-future-alternante-hse-h-f-et-ce-n-est-pas-un-poste-cafe-classeur",
+  "2026-07-16", "16 juillet 2026",
+  "On recrute notre futur·e alternant·e HSE (H/F)",
+  "Un périmètre complet, pas un poste d'observation : construire et piloter notre démarche Santé, Sécurité et Environnement.",
+  ["À Nivolas-Vermelle, en Isère, nous cherchons un·e alternant·e pour <b>bâtir notre démarche HSE de bout en bout</b>. Ce n'est pas un poste d'archivage : c'est un projet à mener.",
+   "<b>Sécurité</b> — pilotage du document unique (DUERP), analyse des accidents et presqu'accidents, plans de prévention, gestion des équipements de protection, quarts d'heure sécurité.",
+   "<b>Réglementaire</b> — veille, conformité au Code du travail et à la réglementation ICPE, vérifications périodiques, habilitations et formations.",
+   "<b>Environnement</b> — gestion des déchets et des filières, dont les DEEE, suivi des indicateurs, démarche RSE.",
+   "<b>Terrain</b> — audits et visites sécurité, accueil des nouveaux collaborateurs, protocoles de chargement et de déchargement.",
+   "<b>Pilotage</b> — système documentaire HSE, tableaux de bord, préparation à une certification ISO 45001 et/ou ISO 14001.",
+   "Ce que l'alternance apporte : une autonomie réelle sur un périmètre à 360°, un contact direct avec la direction dans une PME industrielle à taille humaine, un environnement technique riche, et des actions que vous verrez réellement mises en œuvre.",
+   "<b>Profil</b> : BUT HSE, licence professionnelle HSE/QHSE ou master HSE/QHSE. <b>Rentrée 2026</b>, contrat de 12 à 24 mois, à Nivolas-Vermelle (38).",
+   "Candidatures — CV et quelques lignes de motivation — à <a href=\"mailto:contact@euroventilatori-france.com\">contact@euroventilatori-france.com</a>."],
+  "Alternance HSE (H/F) à Nivolas-Vermelle : DUERP, ICPE, déchets, audits, préparation ISO 45001 et 14001. Rentrée 2026, 12 à 24 mois.")
+
+article("votre-ventilateur-dans-votre-couleur-sans-rien-sacrifier", "2026-07-02", "2 juillet 2026",
+  "Votre ventilateur, dans votre couleur. Sans rien sacrifier.",
+  "Sept machines, sept teintes RAL — et des performances rigoureusement identiques.",
+  ["Sept ventilateurs, sept teintes RAL : autant de façons de s'inscrire dans un atelier. Un code de sécurité, le repérage d'une ligne de production, une charte de marque.",
+   "La couleur porte une information. Un ventilateur à vos teintes rend le site plus lisible pour ceux qui y travaillent — et l'installation ressemble davantage à votre entreprise.",
+   "Quant aux performances, elles ne varient pas d'un pigment : la mise en peinture reste une <a href=\"/traitement-surface\">finition de surface</a>, sans effet sur le débit, la pression ou le rendement.",
+   "Quelle teinte pour la prochaine machine ? Écrivez-nous, nous nous occupons du reste."],
+  "Sept ventilateurs, sept teintes RAL : la couleur au service du repérage en atelier, sans aucun effet sur les performances.")
+
+article("pourquoi-se-contenter-du-gris-standard", "2026-06-15", "15 juin 2026",
+  "Pourquoi se contenter du gris standard&nbsp;?",
+  "Un client nous a demandé un ventilateur rose. Nous avons dit oui — et pour une bonne raison.",
+  ["Ce n'était pas une fantaisie. Dans son atelier, chaque couleur a une signification : un code, une ligne, une consigne de sécurité identifiable d'un coup d'œil.",
+   "Un ventilateur, c'est d'abord de la performance. Mais une fois installé, il fait partie du décor, de l'identité d'un site, parfois de la charte d'une marque.",
+   "Chez Euroventilatori France, la mise en peinture se fait selon votre demande : la teinte RAL de votre choix, pour s'accorder à votre installation et à vos codes couleur.",
+   "Sept ventilateurs centrifuges, sept teintes : même exigence technique, sept finitions. Le détail ne change rien à la mécanique — il change tout au reste."],
+  "La teinte RAL de votre choix sur nos ventilateurs centrifuges : un repérage plus clair en atelier, une mécanique inchangée.")
+
+article("la-moisson-ce-n-est-pas-la-fin-du-travail-c-est-le-debut-de-la-conservation",
+  "2026-06-01", "1er juin 2026",
+  "La moisson n'est pas la fin du travail. C'est le début de la conservation.",
+  "Un grain rentré trop chaud ou trop humide se dégrade en silence.",
+  ["Condensation, points chauds, développement d'insectes : la dégradation ne fait pas de bruit, et c'est la valeur marchande de toute une campagne qui s'érode dans la cellule.",
+   "La <b>ventilation de refroidissement</b> est la première barrière, et la plus simple à mettre en place.",
+   "Le <b>SIL'AIR</b>, ventilateur centrifuge mobile d'Euroventilatori France, est conçu pour l'agro-industrie : il abaisse la température du grain stocké, chasse l'humidité résiduelle et stoppe la condensation, et préserve ainsi la qualité du lot dans le temps.",
+   "Monté sur roulettes, il se déplace d'une cellule à l'autre et s'utilise sans installation préalable.",
+   "Vous préparez votre campagne ? Notre équipe vous accompagne sur le dimensionnement."],
+  "Le SIL'AIR, ventilateur centrifuge mobile, refroidit le grain stocké et stoppe la condensation pour préserver la valeur du lot.")
+
+article("chez-euroventilatori-nous-aimons-faire-les-choses-en-grand", "2026-05-04", "4 mai 2026",
+  "Chez Euroventilatori, nous aimons faire les choses en grand",
+  "Deux centrifuges BPRC 2001 viennent de quitter nos ateliers pour une usine de terre cuite en Argentine.",
+  ["Quand une usine de terre cuite argentine doit ventiler ses fours et ses séchoirs, la demi-mesure n'est pas une option.",
+   "Les caractéristiques de chaque machine : <b>252 000 m³/h</b> de débit d'air à <b>80 °C</b>, <b>900 Pa</b> de pression statique, <b>85 % de rendement</b>, motorisation <b>132 kW</b> à 6 pôles (980 tr/min).",
+   "Ce sont des machines taillées pour l'endurance : haute température et fonctionnement continu, deux contraintes qui ne pardonnent pas l'approximation.",
+   "De la <a href=\"/bureau-etudes\">sélection aéraulique</a> à la mise en caisse sur convoi exceptionnel, chaque étape a été pensée pour garantir la performance et la fiabilité sur le long terme."],
+  "Deux ventilateurs centrifuges BPRC 2001 pour une usine de terre cuite en Argentine : 252 000 m³/h à 80 °C, 85 % de rendement.")
+
+article("mai-arrive-vite-trop-vite", "2026-04-27", "27 avril 2026",
+  "Mai arrive vite. Trop vite.",
+  "Entre ponts et jours fériés, le mois ressemble davantage à trois semaines qu'à trente et un jours.",
+  ["Nos ateliers seront fermés les <b>1er, 8, 14, 15, 22 et 25 mai</b>. C'est aussi un moment de repos pour nos équipes.",
+   "Dans notre secteur, un ventilateur qui n'arrive pas à temps, c'est une installation bloquée et un chantier qui attend.",
+   "La réponse tient en un mot : anticiper. Passez vos commandes dès maintenant pour être livré avant les perturbations, ou planifiez avec nous pour que tout soit calé en amont.",
+   "Un doute sur vos délais ? Écrivez-nous, nous regardons cela ensemble."],
+  "Fermetures des 1er, 8, 14, 15, 22 et 25 mai : anticipez vos commandes de ventilateurs pour éviter l'attente sur chantier.")
+
+article("on-ne-le-voit-pas-on-ne-l-entend-pas", "2026-04-13", "13 avril 2026",
+  "On ne le voit pas. On ne l'entend pas.",
+  "Une isolation en laine de roche haute densité, intégrée à nos ventilateurs centrifuges.",
+  ["Discret par conception, ce matériau fait pourtant partie intégrante de la performance de nos machines. Ce n'est pas un accessoire : c'est une composante technique, intégrée pour répondre à trois exigences à la fois.",
+   "Son rôle : <b>réduire le bruit rayonné</b> par la machine, <b>isoler thermiquement</b>, et offrir ainsi une double protection phonique et thermique intégrée.",
+   "Il n'y a pas de compromis entre performance aéraulique et confort acoustique. L'isolation agit <b>en dehors du flux d'air</b> : le débit, la pression et le rendement ne sont pas affectés. Le ventilateur délivre ses performances nominales pendant que l'isolation travaille en parallèle.",
+   "Pour un bureau d'études, cela simplifie la conception : moins de traitement acoustique à prévoir en aval. Pour l'intégrateur et l'installateur, c'est une mise en œuvre plus directe, sans intervention supplémentaire sur le local technique.",
+   "Nos <a href=\"/caissons-insonorises\">solutions acoustiques</a> complètent ce dispositif lorsque l'ambiance l'exige."],
+  "Laine de roche haute densité sur nos centrifuges : moins de bruit rayonné et une isolation thermique, sans toucher aux performances aérauliques.")
+
+article("ventilation-des-silos-agricoles-la-derniere-etape-qui-conditionne-toutes-les-autres",
+  "2026-03-30", "30 mars 2026",
+  "Ventilation des silos agricoles&nbsp;: la dernière étape qui conditionne toutes les autres",
+  "Une semaine trop humide suffit à compromettre une récolte entière.",
+  ["Pas d'accident, pas d'imprudence : simplement du grain stocké trop chaud, trop longtemps, dans un silo insuffisamment ventilé.",
+   "Des mois à préparer les terres, des nuits à surveiller la météo, des semaines à moissonner — et tout se décide, finalement, dans le silo.",
+   "La ventilation des céréales n'est pas une option en bout de chaîne : c'est la variable qui conditionne la valeur de tout le reste. Une température trop élevée favorise les moisissures ; une humidité non maîtrisée entraîne la fermentation ; une aération insuffisante transforme le stockage en perte nette.",
+   "<b>SIL'AIR</b> est la gamme d'Euroventilatori dédiée au stockage agricole : des ventilateurs silencieux, à haute efficacité énergétique, dimensionnés selon le volume de stockage et le type de grain.",
+   "Ni surdimensionnement, qui pèse inutilement sur la consommation, ni sous-dimensionnement, qui met la récolte en danger. Le bon débit, pour le bon volume."],
+  "La gamme SIL'AIR d'Euroventilatori : des ventilateurs de silo silencieux et économes, dimensionnés selon le volume stocké et le type de grain.")
+
+article("bienvenue-sebastien-coordinateur-technique", "2026-03-02", "2 mars 2026",
+  "Bienvenue à Sébastien, coordinateur technique",
+  "Il se décrit comme « un dessinateur fainéant ». C'est précisément pour cela que nous l'avons recruté.",
+  ["Sébastien a rejoint Euroventilatori France il y a deux mois comme <b>coordinateur technique</b>. Son parcours : des années en bureaux d'études, à concevoir des systèmes hydrauliques haute et basse pression.",
+   "Son mantra — « un bon dessinateur est un dessinateur fainéant » — signifie exactement l'inverse de ce qu'il laisse entendre : quelqu'un qui optimise, qui simplifie, et qui refuse de faire compliqué quand on peut faire efficace.",
+   "Interrogé sur son super-pouvoir, il répond « transmettre mes compétences ». Sur sa façon de travailler, un mot : « bâtisseur ».",
+   "Sa mission chez nous : construire les fondations du <a href=\"/bureau-etudes\">bureau d'études</a>, pour que toute l'équipe travaille mieux et plus vite.",
+   "Et s'il était un ventilateur ? « Le silencieux efficace. » Après deux mois à ses côtés, la description est juste. Bienvenue dans l'équipe."],
+  "Sébastien rejoint Euroventilatori France comme coordinateur technique, avec pour mission de structurer le bureau d'études.")
+
+article("encore-une-realisation-remarquable-pour-un-de-nos-partenaires", "2026-02-06", "6 février 2026",
+  "Une réalisation remarquable pour l'un de nos partenaires",
+  "Trois ventilateurs de 75 kW en zone ATEX, caissonnés et silencieux.",
+  ["Le projet portait sur la mise en place de <b>trois ventilateurs industriels de 75 kW</b> conçus pour répondre aux exigences d'un <b>environnement ATEX</b>.",
+   "Chaque machine a été intégrée dans un <a href=\"/caissons-insonorises\">caisson insonorisé</a> et équipée de silencieux à baffles au soufflage, pour une acoustique maîtrisée sur l'ensemble de l'installation.",
+   "<b>Application</b> : aspiration de poussières et de vapeurs de vernis sec après filtration, en zone classée. Ce type d'usage impose des équipements répondant aux normes de sécurité les plus strictes pour écarter tout risque lié aux atmosphères explosibles.",
+   "<b>Performances de chaque machine</b> : débit de <b>14 500 m³/h</b>, dépression de <b>13 000 Pa</b>, puissance de <b>75 kW</b>. Des valeurs qui assurent une extraction efficace tout en maintenant le niveau de sécurité requis.",
+   "Cette réalisation illustre ce que permet une offre complète : la machine, son <a href=\"/traitement-surface\">traitement</a>, son traitement acoustique et sa <a href=\"/purificateur-air\">filtration</a>, étudiés ensemble plutôt que juxtaposés."],
+  "Trois ventilateurs de 75 kW en zone ATEX : 14 500 m³/h, 13 000 Pa, caissons insonorisés et silencieux à baffles.")
+
+article("bonne-annee-2026-a-tous", "2026-01-06", "6 janvier 2026",
+  "Bonne année 2026 à tous&nbsp;!",
+  "Cap sur une année de progrès et de durabilité.",
+  ["En ouvrant ce nouveau chapitre, toute l'équipe d'Euroventilatori France vous adresse ses meilleurs vœux.",
+   "Cette nouvelle année est l'occasion de remercier celles et ceux qui nous accompagnent : nos clients fidèles, nos partenaires et nos collègues. Votre confiance est le socle sur lequel se construit notre travail.",
+   "Vos retours, vos exigences de qualité et votre fidélité sont ce qui nous pousse à progresser et à concevoir des solutions plus performantes et plus durables.",
+   "L'année écoulée a été marquée par des défis relevés ensemble, des projets ambitieux menés à bien et des partenariats consolidés.",
+   "Nous vous souhaitons une excellente année 2026."],
+  "L'équipe Euroventilatori France vous présente ses meilleurs vœux pour 2026.")
 
 P = {}
 
@@ -557,24 +727,18 @@ conseiller rapidement et transmettre un <b>devis sous 24&nbsp;h</b> selon les
   ])
 
 P["actualites.html"] = dict(
-  title="Actualités d'Euroventilatori - Fabricant de ventilateurs industriels",
-  desc="L'actualité d'Euroventilatori France, concepteur et fabricant de ventilateurs industriels à Nivolas-Vermelle : produits, recrutements, conseils métier.",
+  title="Actualités d'Euroventilatori France — ventilateurs industriels",
+  desc="Réalisations, nouveautés produits, vie de l'entreprise et informations pratiques : suivez l'actualité d'Euroventilatori France, constructeur de ventilateurs industriels.",
   h1="Nos actualités",
-  kicker="Le fil d'Euroventilatori France",
-  ghost="Actus",
-  intro="""<p>Produits, conseils métier, vie de l'entreprise&nbsp;: les dernières
-nouvelles du fabricant de ventilateurs industriels de Nivolas-Vermelle.</p>""",
-  cta='<a class="btn ghost-b" href="https://linkedin.com/company/euroventilatori-france">Nous suivre sur LinkedIn</a>',
-  sections=[
-    ("Derniers articles",
-     ["<b>On recrute notre futur·e alternant·e HSE (H/F)</b> — 16 juillet 2026. Ce n'est pas un poste «&nbsp;café + classeur&nbsp;».",
-      "<b>Votre ventilateur, dans votre couleur. Sans rien sacrifier.</b> — 2 juillet 2026.",
-      "<b>Pourquoi se contenter du gris standard ?</b> — 15 juin 2026. Un client nous a demandé un ventilateur rose.",
-      "<b>La moisson, ce n'est pas la fin du travail. C'est le début de la conservation.</b> — 1 juin 2026.",
-      "<b>On ne le voit pas. On ne l'entend pas.</b> — 13 avril 2026. Isolation en laine de roche haute densité sur nos centrifuges.",
-      "<b>Ventilation des silos agricoles : la dernière étape qui conditionne toutes les autres</b> — 30 mars 2026.",
-      "<i>(Flux complet à raccorder au blog lors de la mise en production.)</i>"]),
-  ])
+  kicker="Le journal de l'entreprise",
+  ghost="Actualités",
+  intro="""<p>Réalisations marquantes, nouveautés de gamme, arrivées dans
+l'équipe et informations pratiques : ce qui se passe chez Euroventilatori
+France, mois après mois.</p>""",
+  cta='<a class="btn primary" href="/contact">Nous contacter</a>'
+      '<a class="btn ghost-b" href="/ventilateurs">Voir nos produits</a>',
+  sections=[],
+  liste_articles=True)
 
 
 # ===========================================================================
@@ -1263,11 +1427,52 @@ META = {
                                             related=["contact","qui"]),
 }
 
+
+def liste_articles_html():
+    """Index des publications, de la plus recente a la plus ancienne."""
+    items = "".join(
+        '<a href="/%s"><span class="go">%s</span><strong>%s</strong>'
+        '<span>%s</span></a>' % (a["slug"], a["date_fr"], a["titre"], a["chapo"])
+        for a in ARTICLES)
+    return ('<section class="related">\n  <div class="wrap">\n'
+            '    <h2>Toutes nos publications</h2>\n'
+            '    <div class="related-grid actus">%s</div>\n  </div>\n</section>' % items)
+
+
+def generer_articles():
+    """Une page par publication, batie sur le meme gabarit que les autres."""
+    for a in ARTICLES:
+        corps = "\n".join("      <p>%s</p>" % p for p in a["corps"])
+        section = ('<section class="page-sec">\n  <div class="wrap sec-grid">\n'
+                   '    <h2>%s</h2>\n    <div class="prose">\n%s\n    </div>\n'
+                   '  </div>\n</section>' % (a["chapo"], corps))
+        html = TPL.format(
+            title=a["titre"].replace("&nbsp;", " ") + " | Euroventilatori France",
+            desc=a["desc"], h1=a["titre"],
+            kicker="Actualités — %s" % a["date_fr"],
+            ghost="Actualité",
+            intro='<p>%s</p>' % a["chapo"],
+            cta='<a class="btn ghost-b" href="/actualites">Toutes les actualités</a>',
+            sections=section,
+            nav=nav_html("/actualites"),
+            breadcrumb=breadcrumb_html([("Actualités", "/actualites"),
+                                        (a["titre"].replace("&nbsp;", " "), None)]),
+            bcjson=breadcrumb_jsonld([("Actualités", "/actualites"),
+                                      (a["titre"].replace("&nbsp;", " "), None)]),
+            org=ORG_JSONLD, canonical=SITE + "/" + a["slug"],
+            proof="", faq="", faqjson=blogposting_jsonld(a),
+            related=autres_articles(a["slug"]), footer=FOOTER)
+        with io.open(a["slug"] + ".html", "w", encoding="utf-8") as f:
+            f.write(html)
+        print("OK", a["slug"] + ".html")
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 for fname, d in P.items():
     m = META.get(fname, dict(nav="", trail=[(d["h1"][:40], None)], related=[]))
     slug = "/" + fname.replace(".html", "")
     sections = "\n".join(sec(h2, paras, *rest) for h2, paras, *rest in d["sections"])
+    if d.get("liste_articles"):
+        sections += "\n" + liste_articles_html()
     html = TPL.format(title=d["title"], desc=d["desc"], h1=d["h1"], kicker=d["kicker"],
                       ghost=d["ghost"], intro=d["intro"], cta=d["cta"],
                       sections=sections,
@@ -1284,4 +1489,5 @@ for fname, d in P.items():
     with io.open(fname, "w", encoding="utf-8") as f:
         f.write(html)
     print("OK", fname)
-print("Terminé :", len(P), "pages")
+generer_articles()
+print("Terminé :", len(P) + len(ARTICLES), "pages")

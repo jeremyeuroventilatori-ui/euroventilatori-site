@@ -38,6 +38,19 @@ PAGES = [
     ("actualites", "Actualités"),
     ("mentions-legales", "Mentions légales"),
     ("vie-privee", "Vie privée"),
+    ("belle-rentree-a-tous", "Actualité"),
+    ("fermeture-estivale", "Actualité"),
+    ("on-recrute-notre-future-alternante-hse-h-f-et-ce-n-est-pas-un-poste-cafe-classeur", "Actualité"),
+    ("votre-ventilateur-dans-votre-couleur-sans-rien-sacrifier", "Actualité"),
+    ("pourquoi-se-contenter-du-gris-standard", "Actualité"),
+    ("la-moisson-ce-n-est-pas-la-fin-du-travail-c-est-le-debut-de-la-conservation", "Actualité"),
+    ("chez-euroventilatori-nous-aimons-faire-les-choses-en-grand", "Actualité"),
+    ("mai-arrive-vite-trop-vite", "Actualité"),
+    ("on-ne-le-voit-pas-on-ne-l-entend-pas", "Actualité"),
+    ("ventilation-des-silos-agricoles-la-derniere-etape-qui-conditionne-toutes-les-autres", "Actualité"),
+    ("bienvenue-sebastien-coordinateur-technique", "Actualité"),
+    ("encore-une-realisation-remarquable-pour-un-de-nos-partenaires", "Actualité"),
+    ("bonne-annee-2026-a-tous", "Actualité"),
 ]
 SLUGS = {s for s, _ in PAGES}
 
