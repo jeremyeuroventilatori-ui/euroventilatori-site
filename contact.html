@@ -6,8 +6,9 @@
 <title>Demandez votre devis  et contactez Euroventilatori France à Lyon</title>
 <meta name="description" content="Ventilateur industriel, pièce détachée, accessoire : contactez nos experts. Devis transmis sous 24 h selon les éléments fournis. 04 74 43 68 38.">
 <link rel="canonical" href="https://www.euroventilatori.fr/contact">
-<!-- ⚠️ PRÉPRODUCTION : retirer ce noindex LE JOUR de la bascule du domaine. -->
-<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.png" sizes="180x180">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Euroventilatori France">
 <meta property="og:locale" content="fr_FR">
@@ -16,7 +17,8 @@
 <meta property="og:url" content="https://www.euroventilatori.fr/contact">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#033F87">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v=f9fe9ffafa">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -156,6 +158,44 @@ conseiller rapidement et transmettre un <b>devis sous 24&nbsp;h</b> selon les
     </div>
   </div>
 </section>
+<section class="page-sec">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-card rv">
+        <p class="big">Parler à un technicien</p>
+        <div class="coord">
+          <a href="tel:0474436838">04 74 43 68 38</a>
+          <a href="mailto:contact@euroventilatori-france.com">contact@euroventilatori-france.com</a>
+          <span>150 rue du Vernay, 38300 Nivolas-Vermelle</span>
+        </div>
+        <p style="color:var(--muted);font-size:14px">Décrivez votre débit, votre pression et votre fluide : nous faisons le reste. Devis détaillé sous 24&nbsp;h.</p>
+      </div>
+      <form class="contact-card rv" id="devisForm" method="post" action="/api/contact" novalidate>
+        <div class="field"><label for="f-nom">Nom / société <span aria-hidden="true">*</span></label>
+          <input id="f-nom" name="nom" autocomplete="organization" required></div>
+        <div class="field"><label for="f-mail">E-mail <span aria-hidden="true">*</span></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-tel">Téléphone</label>
+          <input id="f-tel" name="telephone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="f-msg">Votre besoin — débit, pression, fluide <span aria-hidden="true">*</span></label>
+          <textarea id="f-msg" name="message" rows="5" required></textarea></div>
+        <!-- Rempli par le pupitre de sélection lorsqu'il a servi -->
+        <input type="hidden" id="f-contexte" name="contexte" value="">
+        <!-- Pot de miel : invisible pour l'utilisateur, tentant pour un robot -->
+        <div class="pot-de-miel" aria-hidden="true">
+          <label for="f-societe-bis">Ne pas remplir</label>
+          <input id="f-societe-bis" name="societe_bis" tabindex="-1" autocomplete="off"></div>
+        <input type="hidden" id="f-t0" name="t0" value="">
+        <!-- Anti-robot Cloudflare : la clé publique se renseigne à la mise en ligne -->
+        <div class="cf-turnstile" data-sitekey="A_RENSEIGNER" data-theme="auto"></div>
+        <button class="btn primary" type="submit" id="f-envoi">Envoyer la demande</button>
+        <p class="form-retour" id="f-retour" role="status" aria-live="polite" hidden></p>
+        <p class="mono form-rgpd">Vos données servent uniquement à traiter votre demande.
+          <a href="/vie-privee">En savoir plus</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>
 <section class="faq band-alt">
   <div class="wrap">
     <div class="sec-head rv">
@@ -234,6 +274,6 @@ conseiller rapidement et transmettre un <b>devis sous 24&nbsp;h</b> selon les
     </div>
   </div>
 </footer>
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=9d7ca96443"></script>
 </body>
 </html>

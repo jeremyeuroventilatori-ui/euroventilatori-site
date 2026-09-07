@@ -201,6 +201,52 @@ if (rv.length) {
   majPin();
 })();
 
+
+/* ============================================================
+   FORMULAIRE — envoi vers /api/contact sans rechargement.
+   Sans ce gestionnaire, le navigateur poste nativement et affiche
+   la reponse JSON brute : le message doit rester dans la page.
+   ============================================================ */
+(function () {
+  var f = document.getElementById("devisForm");
+  if (!f) return;
+  var retour = document.getElementById("f-retour");
+  var bouton = document.getElementById("f-envoi");
+  var t0 = document.getElementById("f-t0");
+  if (t0) t0.value = String(Date.now());   /* mesure le temps de remplissage */
+
+  function afficher(texte, ok) {
+    retour.textContent = texte;
+    retour.className = "form-retour " + (ok ? "ok" : "ko");
+    retour.hidden = false;
+  }
+
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var ctx = document.getElementById("f-contexte");
+    if (ctx && window.__pointDeFonctionnement) ctx.value = window.__pointDeFonctionnement;
+
+    bouton.disabled = true;
+    var libelle = bouton.textContent;
+    bouton.textContent = "Envoi en cours…";
+    retour.hidden = true;
+
+    fetch(f.action, { method: "POST", body: new FormData(f) })
+      .then(function (r) {
+        return r.json().catch(function () {
+          return { ok: false, message: "Réponse inattendue du serveur. "
+            + "Appelez-nous au 04 74 43 68 38." };
+        });
+      })
+      .then(function (d) { afficher(d.message, d.ok); if (d.ok) f.reset(); })
+      .catch(function () {
+        afficher("L'envoi a échoué. Écrivez-nous à contact@euroventilatori-france.com "
+          + "ou appelez le 04 74 43 68 38.", false);
+      })
+      .then(function () { bouton.disabled = false; bouton.textContent = libelle; });
+  });
+})();
+
 /* ---------- compteurs des bandeaux de preuve ---------- */
 var fmt = new Intl.NumberFormat("fr-FR");
 var counters = document.querySelectorAll("[data-count]");

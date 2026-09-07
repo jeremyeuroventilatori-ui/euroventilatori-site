@@ -6,6 +6,14 @@ réel. Exécuter depuis le dossier euroventilatori-site : python gen_pages.py
 """
 import io, os
 
+
+import hashlib
+
+def empreinte(chemin):
+    """Empreinte courte du contenu, pour invalider le cache a bon escient."""
+    with io.open(chemin, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()[:10]
+
 SITE = "https://www.euroventilatori.fr"
 
 NAV_ITEMS = [
@@ -203,8 +211,9 @@ TPL = """<!doctype html>
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{canonical}">
-<!-- ⚠️ PRÉPRODUCTION : retirer ce noindex LE JOUR de la bascule du domaine. -->
-<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.png" sizes="180x180">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Euroventilatori France">
 <meta property="og:locale" content="fr_FR">
@@ -213,7 +222,7 @@ TPL = """<!doctype html>
 <meta property="og:url" content="{canonical}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#033F87">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v={vcss}">{turnstile}
 <script type="application/ld+json">
 {org}
 </script>
@@ -256,7 +265,7 @@ TPL = """<!doctype html>
 </section>
 </main>
 {footer}
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v={vjs}"></script>
 </body>
 </html>
 """
@@ -444,6 +453,47 @@ article("bonne-annee-2026-a-tous", "2026-01-06", "6 janvier 2026",
    "L'année écoulée a été marquée par des défis relevés ensemble, des projets ambitieux menés à bien et des partenariats consolidés.",
    "Nous vous souhaitons une excellente année 2026."],
   "L'équipe Euroventilatori France vous présente ses meilleurs vœux pour 2026.")
+
+TURNSTILE = ("\n<script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js\" async defer></script>")
+
+FORMULAIRE_HTML = """<section class="page-sec">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-card rv">
+        <p class="big">Parler à un technicien</p>
+        <div class="coord">
+          <a href="tel:0474436838">04 74 43 68 38</a>
+          <a href="mailto:contact@euroventilatori-france.com">contact@euroventilatori-france.com</a>
+          <span>150 rue du Vernay, 38300 Nivolas-Vermelle</span>
+        </div>
+        <p style="color:var(--muted);font-size:14px">Décrivez votre débit, votre pression et votre fluide : nous faisons le reste. Devis détaillé sous 24&nbsp;h.</p>
+      </div>
+      <form class="contact-card rv" id="devisForm" method="post" action="/api/contact" novalidate>
+        <div class="field"><label for="f-nom">Nom / société <span aria-hidden="true">*</span></label>
+          <input id="f-nom" name="nom" autocomplete="organization" required></div>
+        <div class="field"><label for="f-mail">E-mail <span aria-hidden="true">*</span></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-tel">Téléphone</label>
+          <input id="f-tel" name="telephone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="f-msg">Votre besoin — débit, pression, fluide <span aria-hidden="true">*</span></label>
+          <textarea id="f-msg" name="message" rows="5" required></textarea></div>
+        <!-- Rempli par le pupitre de sélection lorsqu'il a servi -->
+        <input type="hidden" id="f-contexte" name="contexte" value="">
+        <!-- Pot de miel : invisible pour l'utilisateur, tentant pour un robot -->
+        <div class="pot-de-miel" aria-hidden="true">
+          <label for="f-societe-bis">Ne pas remplir</label>
+          <input id="f-societe-bis" name="societe_bis" tabindex="-1" autocomplete="off"></div>
+        <input type="hidden" id="f-t0" name="t0" value="">
+        <!-- Anti-robot Cloudflare : la clé publique se renseigne à la mise en ligne -->
+        <div class="cf-turnstile" data-sitekey="A_RENSEIGNER" data-theme="auto"></div>
+        <button class="btn primary" type="submit" id="f-envoi">Envoyer la demande</button>
+        <p class="form-retour" id="f-retour" role="status" aria-live="polite" hidden></p>
+        <p class="mono form-rgpd">Vos données servent uniquement à traiter votre demande.
+          <a href="/vie-privee">En savoir plus</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>"""
 
 P = {}
 
@@ -708,6 +758,7 @@ rendement selon débit, pression et température du fluide.</p>""",
   ])
 
 P["contact.html"] = dict(
+  formulaire=True,
   title="Demandez votre devis  et contactez Euroventilatori France à Lyon",
   desc="Ventilateur industriel, pièce détachée, accessoire : contactez nos experts. Devis transmis sous 24 h selon les éléments fournis. 04 74 43 68 38.",
   h1="Contactez Euroventilatori pour tout achat de ventilateurs industriels et solutions acoustiques",
@@ -1460,17 +1511,22 @@ def generer_articles():
             bcjson=breadcrumb_jsonld([("Actualités", "/actualites"),
                                       (a["titre"].replace("&nbsp;", " "), None)]),
             org=ORG_JSONLD, canonical=SITE + "/" + a["slug"],
-            proof="", faq="", faqjson=blogposting_jsonld(a),
+            proof="", faq="", turnstile="", vcss=VCSS, vjs=VJS,
+            faqjson=blogposting_jsonld(a),
             related=autres_articles(a["slug"]), footer=FOOTER)
         with io.open(a["slug"] + ".html", "w", encoding="utf-8") as f:
             f.write(html)
         print("OK", a["slug"] + ".html")
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+VCSS = empreinte(os.path.join("assets", "styles.css"))
+VJS = empreinte(os.path.join("assets", "site.js"))
 for fname, d in P.items():
     m = META.get(fname, dict(nav="", trail=[(d["h1"][:40], None)], related=[]))
     slug = "/" + fname.replace(".html", "")
     sections = "\n".join(sec(h2, paras, *rest) for h2, paras, *rest in d["sections"])
+    if d.get("formulaire"):
+        sections += "\n" + FORMULAIRE_HTML
     if d.get("liste_articles"):
         sections += "\n" + liste_articles_html()
     html = TPL.format(title=d["title"], desc=d["desc"], h1=d["h1"], kicker=d["kicker"],
@@ -1482,6 +1538,8 @@ for fname, d in P.items():
                       org=ORG_JSONLD,
                       canonical=SITE + slug,
                       proof=PROOF if m.get("proof", True) else "",
+                      vcss=VCSS, vjs=VJS,
+                      turnstile=(TURNSTILE if d.get("formulaire") else ""),
                       faq=faq_html(d.get("faq")),
                       faqjson=faq_jsonld(d.get("faq")),
                       related=related_html([R[k] for k in m["related"]]),

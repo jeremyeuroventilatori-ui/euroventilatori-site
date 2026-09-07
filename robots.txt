@@ -1,6 +1,17 @@
-# Autoriser tous les robots, y compris les crawlers des moteurs IA (GEO)
 User-agent: *
 Allow: /
 
-# À activer à la mise en production sur le domaine définitif :
-# Sitemap: https://www.euroventilatori.fr/sitemap.xml
+# Moteurs génératifs : explicitement autorisés (volet GEO).
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.euroventilatori.fr/sitemap.xml
+
+# La préproduction et les adresses *.pages.dev sont écartées des moteurs par
+# l'en-tête X-Robots-Tag, posé selon le nom d'hôte (functions/_middleware.js).

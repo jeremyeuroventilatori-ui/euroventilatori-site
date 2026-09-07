@@ -6,10 +6,9 @@
 <title>Ventilation industrielle près de Lyon - Euroventilatori France</title>
 <meta name="description" content="Experts en ventilation industrielle depuis plus de 35 ans, nous vous accompagnons et conseillons dans l'achat d'un ventilateur industriel adapté à vos besoins, près de Lyon et dans toute la France.">
 <link rel="canonical" href="https://www.euroventilatori.fr/">
-<!-- ⚠️ PRÉPRODUCTION : retirer cette ligne noindex LE JOUR de la bascule du domaine,
-     jamais avant (sinon duplicate content avec le site actuel), jamais après (sinon
-     le site neuf reste invisible de Google). Voir runbook skill transfert-domaine. -->
-<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.png" sizes="180x180">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Euroventilatori France">
 <meta property="og:locale" content="fr_FR">
@@ -36,7 +35,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v=f9fe9ffafa">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 <canvas id="airCanvas" aria-hidden="true"></canvas>
@@ -55,6 +55,7 @@
       <a href="/secteurs-activite">Secteurs</a>
       <a href="/bureau-etudes">Bureau d'études</a>
       <a href="/telechargement">Téléchargement</a>
+      <a href="/actualites">Actualités</a>
       <a href="/contact">Contact</a>
     </nav>
     <div class="hd-cta">
@@ -317,13 +318,28 @@
           technico-commerciale : décrivez votre débit, votre pression et votre fluide,
           nous faisons le reste.</p>
       </div>
-      <form class="contact-card rv" id="devisForm">
-        <div class="field"><label for="f-nom">Nom / société</label><input id="f-nom" name="nom" autocomplete="organization"></div>
-        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email"></div>
-        <div class="field"><label for="f-msg">Votre besoin (débit, pression, fluide…)</label><textarea id="f-msg" name="message" rows="4"></textarea></div>
-        <button class="btn primary" type="submit">Envoyer la demande</button>
-        <p class="mono" style="font-size:11px;color:var(--muted)">Maquette : l'envoi ouvre
-          votre messagerie — le formulaire sera branché à la mise en ligne.</p>
+      <form class="contact-card rv" id="devisForm" method="post" action="/api/contact" novalidate>
+        <div class="field"><label for="f-nom">Nom / société <span aria-hidden="true">*</span></label>
+          <input id="f-nom" name="nom" autocomplete="organization" required></div>
+        <div class="field"><label for="f-mail">E-mail <span aria-hidden="true">*</span></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-tel">Téléphone</label>
+          <input id="f-tel" name="telephone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="f-msg">Votre besoin — débit, pression, fluide <span aria-hidden="true">*</span></label>
+          <textarea id="f-msg" name="message" rows="5" required></textarea></div>
+        <!-- Rempli par le pupitre de sélection lorsqu'il a servi -->
+        <input type="hidden" id="f-contexte" name="contexte" value="">
+        <!-- Pot de miel : invisible pour l'utilisateur, tentant pour un robot -->
+        <div class="pot-de-miel" aria-hidden="true">
+          <label for="f-societe-bis">Ne pas remplir</label>
+          <input id="f-societe-bis" name="societe_bis" tabindex="-1" autocomplete="off"></div>
+        <input type="hidden" id="f-t0" name="t0" value="">
+        <!-- Anti-robot Cloudflare : la clé publique se renseigne à la mise en ligne -->
+        <div class="cf-turnstile" data-sitekey="A_RENSEIGNER" data-theme="auto"></div>
+        <button class="btn primary" type="submit" id="f-envoi">Envoyer la demande</button>
+        <p class="form-retour" id="f-retour" role="status" aria-live="polite" hidden></p>
+        <p class="mono form-rgpd">Vos données servent uniquement à traiter votre demande.
+          <a href="/vie-privee">En savoir plus</a>.</p>
       </form>
     </div>
   </div>
@@ -563,6 +579,10 @@ function toolUpdate(){
       + "Débit : " + Math.round(Q) + " m³/h\nPression : " + Math.round(dp) + " Pa\n"
       + "Puissance estimée : " + (P<10?P.toFixed(1):Math.round(P)) + " kW (η=0,72)\n\nContexte : ");
   mapDraw(Q,dp);
+  /* Le point de fonctionnement suit l'utilisateur jusqu'au formulaire */
+  window.__pointDeFonctionnement = "Débit " + fmt.format(Math.round(Q)) + " m³/h · Pression "
+    + fmt.format(Math.round(dp)) + " Pa · Puissance estimée "
+    + (P<10 ? P.toFixed(1) : Math.round(P)) + " kW (η=0,72) · Famille " + famOf(dp);
 }
 function mapDraw(Q,dp){
   var w = mc.clientWidth, h = mc.clientHeight;
@@ -613,14 +633,46 @@ toolUpdate();
 new MutationObserver(function(){ famDraw(); toolUpdate(); if (reduced) heroFrame(); })
   .observe(root, {attributes:true, attributeFilter:["data-theme"]});
 
-/* ---------- formulaire maquette → mailto ---------- */
-document.getElementById("devisForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  var f = e.target;
-  location.href = "mailto:contact@euroventilatori-france.com"
-    + "?subject=" + encodeURIComponent("Demande de devis — " + (f.nom.value || "site web"))
-    + "&body=" + encodeURIComponent((f.message.value||"") + "\n\nContact : " + (f.email.value||""));
-});
+/* ---------- formulaire : envoi vers /api/contact ---------- */
+(function(){
+  var f = document.getElementById("devisForm");
+  if (!f) return;
+  var retour = document.getElementById("f-retour");
+  var bouton = document.getElementById("f-envoi");
+  var t0 = document.getElementById("f-t0");
+  if (t0) t0.value = String(Date.now());   /* mesure le temps de remplissage */
+
+  function afficher(texte, ok){
+    retour.textContent = texte;
+    retour.className = "form-retour " + (ok ? "ok" : "ko");
+    retour.hidden = false;
+  }
+
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    /* Report du point de fonctionnement si le pupitre a servi */
+    var ctx = document.getElementById("f-contexte");
+    if (ctx && window.__pointDeFonctionnement) ctx.value = window.__pointDeFonctionnement;
+
+    bouton.disabled = true;
+    var libelle = bouton.textContent;
+    bouton.textContent = "Envoi en cours…";
+    retour.hidden = true;
+
+    fetch(f.action, { method: "POST", body: new FormData(f) })
+      .then(function(r){ return r.json().catch(function(){ return {ok:false,
+        message:"Réponse inattendue du serveur. Appelez-nous au 04 74 43 68 38."}; }); })
+      .then(function(d){
+        afficher(d.message, d.ok);
+        if (d.ok) f.reset();
+      })
+      .catch(function(){
+        afficher("L'envoi a échoué. Écrivez-nous à contact@euroventilatori-france.com "
+                 + "ou appelez le 04 74 43 68 38.", false);
+      })
+      .then(function(){ bouton.disabled = false; bouton.textContent = libelle; });
+  });
+})();
 
 /* ============================================================
    PARALLAXE — grammaire caeli-energie.com, sans librairie :
