@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Découvrez notre bureau d'études industrielles à Lyon</title>
+<meta name="description" content="CAO 2D/3D SolidWorks, certificats de vibration, d'équilibrage, spectres acoustiques, ErP 2015 : notre bureau d'études valide la faisabilité de votre projet.">
+<link rel="canonical" href="https://www.euroventilatori.fr/bureau-etudes">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.png" sizes="180x180">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Euroventilatori France">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Découvrez notre bureau d'études industrielles à Lyon">
+<meta property="og:description" content="CAO 2D/3D SolidWorks, certificats de vibration, d'équilibrage, spectres acoustiques, ErP 2015 : notre bureau d'études valide la faisabilité de votre projet.">
+<meta property="og:url" content="https://www.euroventilatori.fr/bureau-etudes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#033F87">
+<link rel="stylesheet" href="assets/styles.css?v=f9fe9ffafa">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "Euroventilatori France",
+ "url": "https://www.euroventilatori.fr",
+ "description": "Constructeur de ventilateurs industriels centrifuges et hélicoïdaux, de caissons insonorisés et de solutions de filtration d'air.",
+ "telephone": "+33474436838",
+ "email": "contact@euroventilatori-france.com",
+ "foundingDate": "1981",
+ "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "150 Rue du Vernay",
+  "postalCode": "38300",
+  "addressLocality": "Nivolas-Vermelle",
+  "addressCountry": "FR"
+ },
+ "areaServed": "FR",
+ "sameAs": [
+  "https://facebook.com/profile.php?id=61572883753722",
+  "https://linkedin.com/company/euroventilatori-france"
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Accueil",
+   "item": "https://www.euroventilatori.fr/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Bureau d'études"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Que fait concrètement le bureau d'études ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Il analyse le besoin réel — débit, pression, fluide, contraintes du site —, dimensionne la machine, réalise les plans d'implantation en CAO 2D et 3D, et vérifie la compatibilité avec l'installation existante avant lancement en fabrication."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Quel logiciel utilisez-vous pour la conception ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "La conception est réalisée sous SolidWorks, en 2D et en 3D, ce qui permet de fournir des plans d'implantation exploitables et de valider les encombrements avant fabrication."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Peut-on faire modifier un plan en cours de projet ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Oui. L'adaptation des plans d'implantation en cours de projet fait partie du travail courant du bureau d'études, avec le nouveau dimensionnement correspondant lorsque la modification touche l'aéraulique."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "L'étude est-elle facturée ?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "L'établissement du devis, y compris le dimensionnement associé, est réalisé sous 24 heures dans le cadre de la démarche commerciale. Les études approfondies liées à des projets spécifiques font l'objet d'un accord préalable."
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<canvas id="airCanvas" aria-hidden="true"></canvas>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+<header>
+  <div class="wrap hd">
+    <a class="logo" href="/" aria-label="Euroventilatori France — accueil">
+      <b>EUROVENTILATORI</b><span>FRANCE</span>
+    </a>
+    <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">☰</button>
+    <nav class="main" id="mainNav" aria-label="Navigation principale">
+      <a href="/ventilateurs">Nos produits</a>
+      <a href="/solutions-ventilateur-industriel">Solutions</a>
+      <a href="/secteurs-activite">Secteurs</a>
+      <a href="/bureau-etudes" aria-current="page">Bureau d'études</a>
+      <a href="/telechargement">Téléchargement</a>
+      <a href="/actualites">Actualités</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div class="hd-cta">
+      <a class="tel" href="tel:0474436838">04 74 43 68 38</a>
+      <button id="themeBtn" aria-label="Basculer le thème clair / sombre" aria-pressed="false">◐</button>
+    </div>
+  </div>
+</header>
+<main id="contenu">
+<nav class="breadcrumb wrap" aria-label="Fil d'Ariane">
+  <ol><li><a href="/">Accueil</a></li><li aria-current="page">Bureau d'études</li></ol>
+</nav>
+<section class="hero-lite">
+  <span class="ghost" data-plx="-0.14" aria-hidden="true">Études</span>
+  <div class="wrap">
+    <p class="eyebrow">Ingénierie — disponible à Lyon, intervention dans toute la France</p>
+    <h1>Notre bureau d'études industrielles</h1>
+    <div class="prose lead-block">
+<p>La qualité de nos machines repose sur l'implication quotidienne de nos
+ingénieurs. Le bureau d'études conçoit des ventilateurs plus performants, plus
+silencieux, plus résistants et moins énergivores — sur logiciels de CAO 2D et
+3D <b>SolidWorks</b>.</p>
+    </div>
+    <div class="cta-row"><a class="btn primary" href="/contact">Prenons rendez-vous</a></div>
+  </div>
+</section>
+<section class="proof band-alt">
+  <div class="wrap">
+    <div class="proof-grid">
+      <div class="proof-item rv"><span class="n"><span data-count="35">0</span><i>ans</i></span><span class="l">d'expertise en France</span></div>
+      <div class="proof-item rv"><span class="n"><span data-count="30000">0</span></span><span class="l">ventilateurs produits par an</span></div>
+      <div class="proof-item rv"><span class="n"><span data-count="28000">0</span><i>m²</i></span><span class="l">de surface de production</span></div>
+      <div class="proof-item rv"><span class="n">24<i>h</i></span><span class="l">pour un devis détaillé</span></div>
+    </div>
+  </div>
+</section>
+<section class="page-sec">
+  <div class="wrap sec-grid">
+    <h2>Des ventilateurs industriels soumis à des analyses pour vous garantir leur qualité</h2>
+    <div class="prose">
+      <p>Chaque machine peut être livrée avec ses comptes rendus : <b>certificat de vibration</b>, certificat matière, <b>certificat d'équilibrage</b>, spectre acoustique, attestation d'origine, dossier technique complet, certificat d'origine visé CCI et certificat <b>ErP 2015</b> (directive européenne 2009/125/CE).</p>
+      <p>Des ventilateurs conformes aux normes en vigueur — et les documents qui le prouvent.</p>
+      
+    </div>
+  </div>
+</section>
+<section class="page-sec">
+  <div class="wrap sec-grid">
+    <h2>Un produit et un process étudiés pour proposer les meilleurs délais de fabrication</h2>
+    <div class="prose">
+      <p>Réactivité d'abord : plans d'implantation adaptés, modifications intégrées rapidement avec nouveau dimensionnement, production calée sur vos délais — c'est la flexibilité que nos clients saluent dans leurs <a href="/qui-sommes-nous">témoignages</a>.</p>
+      <p>De la faisabilité à la mise en service, un seul fil conducteur : votre cahier des charges.</p>
+      <div class="spec"><span>SolidWorks 2D/3D</span><span>Certificats & essais</span><span>ErP 2015</span></div>
+    </div>
+  </div>
+</section>
+<section class="faq band-alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Ce que l'on nous demande le plus souvent</h2>
+    </div>
+    <div class="faq-list"><div class="faq-item"><h3>Que fait concrètement le bureau d'études ?</h3><p>Il analyse le besoin réel — débit, pression, fluide, contraintes du site —, dimensionne la machine, réalise les plans d'implantation en CAO 2D et 3D, et vérifie la compatibilité avec l'installation existante avant lancement en fabrication.</p></div><div class="faq-item"><h3>Quel logiciel utilisez-vous pour la conception ?</h3><p>La conception est réalisée sous SolidWorks, en 2D et en 3D, ce qui permet de fournir des plans d'implantation exploitables et de valider les encombrements avant fabrication.</p></div><div class="faq-item"><h3>Peut-on faire modifier un plan en cours de projet ?</h3><p>Oui. L'adaptation des plans d'implantation en cours de projet fait partie du travail courant du bureau d'études, avec le nouveau dimensionnement correspondant lorsque la modification touche l'aéraulique.</p></div><div class="faq-item"><h3>L'étude est-elle facturée ?</h3><p>L'établissement du devis, y compris le dimensionnement associé, est réalisé sous 24 heures dans le cadre de la démarche commerciale. Les études approfondies liées à des projets spécifiques font l'objet d'un accord préalable.</p></div></div>
+  </div>
+</section>
+<section class="related band-alt">
+  <div class="wrap">
+    <h2>À consulter également</h2>
+    <div class="related-grid"><a href="/competences"><strong>Nos compétences</strong><span>Conception, dimensionnement, essais et suivi.</span><span class="go">Consulter →</span></a><a href="/ventilateur-sur-mesure"><strong>Ventilateurs sur mesure</strong><span>Aciers spéciaux, hautes températures, ATEX : la machine dédiée.</span><span class="go">Consulter →</span></a><a href="/telechargement"><strong>LiveCurve & documentation</strong><span>Simuler les courbes aérauliques et télécharger les fiches.</span><span class="go">Consulter →</span></a></div>
+  </div>
+</section>
+<section class="cta-band-wrap">
+  <div class="cta-band">
+    <div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px">
+      <div>
+        <h2 style="font-size:clamp(24px,3.2vw,38px);text-transform:uppercase">Un projet de ventilation&nbsp;?</h2>
+        <p style="opacity:.75;margin-top:6px">Transmettez débit, pression et contraintes&nbsp;: devis détaillé sous 24&nbsp;h.</p>
+      </div>
+      <a class="btn primary" href="/contact">Demander un devis</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="/" style="color:var(--deep-ink)"><b>EUROVENTILATORI</b><span>FRANCE</span></a>
+        <p style="opacity:.7;font-size:13.5px;margin-top:14px;max-width:38ch">Constructeur
+          de ventilateurs industriels et de solutions acoustiques — plus de 35 ans au
+          service de l'air des usines.</p>
+        <p class="mono" style="opacity:.6;font-size:12px;margin-top:10px">150 Rue du Vernay<br>38300 Nivolas-Vermelle</p>
+      </div>
+      <div>
+        <h3>Produits</h3>
+        <a href="/ventilateurs">Nos ventilateurs</a>
+        <a href="/ventilateur-gamme">Ventilateurs de gamme</a>
+        <a href="/ventilateur-sur-mesure">Ventilateurs sur mesure</a>
+        <a href="/ventilateurs-centrifuges">Ventilateurs centrifuges</a>
+        <a href="/ventilateurs-helicoides">Ventilateurs hélicoïdes</a>
+        <a href="/caissons-insonorises">Acoustique</a>
+        <a href="/purificateur-air">Filtration</a>
+        <a href="/nos-autres-accessoires">Accessoires</a>
+      </div>
+      <div>
+        <h3>Entreprise</h3>
+        <a href="/qui-sommes-nous">Qui sommes-nous ?</a>
+        <a href="/bureau-etudes">Bureau d'études</a>
+        <a href="/competences">Compétences</a>
+        <a href="/secteurs-activite">Secteurs d'activité</a>
+        <a href="/traitement-surface">Traitement de surface</a>
+        <a href="/actualites">Actualités</a>
+      </div>
+      <div>
+        <h3>Ressources</h3>
+        <a href="/solutions-ventilateur-industriel">Solutions</a>
+        <a href="/telechargement">Téléchargement &amp; LiveCurve</a>
+        <a href="/contact">Contact &amp; devis</a>
+        <a href="/ile-de-france-rhone-alpes">Rhône-Alpes</a>
+        <a href="/paris">Paris / Île-de-France</a>
+        <a href="/lille">Lille / Hauts-de-France</a>
+        <a href="/bretagne">Bretagne</a>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 Euroventilatori France — Constructeur de ventilateurs industriels</span>
+      <span class="foot-legal">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/vie-privee">Vie privée</a>
+        <a href="/vie-privee">Cookies</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js?v=9d7ca96443"></script>
+</body>
+</html>

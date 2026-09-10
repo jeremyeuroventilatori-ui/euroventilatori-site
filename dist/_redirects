@@ -1,0 +1,7 @@
+# Redirections 301 — Cloudflare Pages
+# L'arborescence reprend les URL du site actuel a l'identique : seules les
+# pages reellement disparues sont redirigees.
+
+/outils    /telechargement   301
+/calculs   /telechargement   301
+/privacy   /vie-privee       301

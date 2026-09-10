@@ -1,0 +1,270 @@
+/* JS commun à toutes les pages : le souffle (canvas d'air ambiant), thème,
+   menu mobile, parallaxe légère, révélation au défilement.
+   index.html embarque en plus ses scripts propres (hero centrifuge, pupitre). */
+(function () {
+"use strict";
+var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+var root = document.documentElement;
+function tok(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
+
+/* ---------- thème ---------- */
+var themeBtn = document.getElementById("themeBtn");
+if (themeBtn) {
+  var sombreActif = function () {
+    return root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+  };
+  /* Le bouton expose son etat : sans cela, un lecteur d'ecran annonce un
+     bouton sans indiquer le theme en cours (WCAG 4.1.2). */
+  themeBtn.setAttribute("aria-pressed", sombreActif() ? "true" : "false");
+  themeBtn.addEventListener("click", function () {
+    var versClair = sombreActif();
+    root.setAttribute("data-theme", versClair ? "light" : "dark");
+    themeBtn.setAttribute("aria-pressed", versClair ? "false" : "true");
+  });
+}
+
+/* ---------- menu mobile ---------- */
+var burger = document.getElementById("burger"), nav = document.getElementById("mainNav");
+if (burger && nav) {
+  burger.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  nav.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") { nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }
+  });
+}
+
+/* ============================================================
+   LE SOUFFLE — nappe d'air qui traverse toutes les pages.
+   Filets laminaires ondulants ; le défilement crée une rafale
+   (l'air accélère, s'étire, puis retrouve son régime de croisière).
+   ============================================================ */
+var air = document.getElementById("airCanvas");
+if (air) {
+  var ax = air.getContext("2d"), DPR = Math.min(devicePixelRatio || 1, 2);
+  var W = 0, H = 0, lines = [], gust = 0, lastY = scrollY, t = 0;
+
+  function seedLines() {
+    W = air.clientWidth; H = air.clientHeight;
+    air.width = W * DPR; air.height = H * DPR; ax.setTransform(DPR, 0, 0, DPR, 0, 0);
+    lines = [];
+    /* densité proportionnelle à la hauteur : ni vide sur grand écran, ni chargé sur mobile */
+    var n = Math.max(9, Math.min(22, Math.round(H / 46)));
+    for (var i = 0; i < n; i++) {
+      lines.push({
+        y: (i + 0.5) * (H / n) + (Math.random() - 0.5) * 12,
+        x: Math.random() * W,                    /* position de tête */
+        len: 40 + Math.random() * 130,           /* longueur du filet */
+        v: 0.25 + Math.random() * 0.55,          /* vitesse de croisière */
+        amp: 4 + Math.random() * 13,             /* amplitude d'ondulation */
+        k: 0.004 + Math.random() * 0.008,        /* fréquence spatiale */
+        ph: Math.random() * Math.PI * 2,
+        fast: Math.random() < 0.16                /* quelques filets marqués */
+      });
+    }
+  }
+
+  function airFrame() {
+    ax.clearRect(0, 0, W, H);
+    var brand = tok("--brand"), accent = tok("--accent");
+    t += 0.01;
+    /* la rafale retombe doucement — inertie de l'air */
+    gust *= 0.94;
+    var boost = 1 + Math.min(gust, 26) * 0.55;
+
+    for (var i = 0; i < lines.length; i++) {
+      var L = lines[i];
+      L.x += L.v * boost;
+      if (L.x - L.len > W) { L.x = -L.len - Math.random() * 60; L.y += (Math.random() - 0.5) * 8; }
+
+      /* le filet s'étire sous la rafale, comme un fluide accéléré */
+      var len = L.len * (1 + Math.min(gust, 26) * 0.05);
+      ax.beginPath();
+      for (var s = 0; s <= len; s += 7) {
+        var px = L.x - s;
+        if (px < -20 || px > W + 20) continue;
+        var py = L.y + Math.sin(px * L.k + L.ph + t) * L.amp;
+        s === 0 ? ax.moveTo(px, py) : ax.lineTo(px, py);
+      }
+      ax.strokeStyle = L.fast ? accent : brand;
+      ax.globalAlpha = (L.fast ? 0.20 : 0.13) + Math.min(gust, 26) * 0.007;
+      ax.lineWidth = L.fast ? 1.5 : 1;
+      ax.lineCap = "round";
+      ax.stroke();
+    }
+    ax.globalAlpha = 1;
+    if (!reduced) requestAnimationFrame(airFrame);
+  }
+
+  seedLines();
+  addEventListener("resize", seedLines);
+  if (reduced) { airFrame(); }
+  else {
+    addEventListener("scroll", function () {
+      gust += Math.min(Math.abs(scrollY - lastY) * 0.16, 5);
+      lastY = scrollY;
+    }, { passive: true });
+    requestAnimationFrame(airFrame);
+  }
+  new MutationObserver(function () { if (reduced) airFrame(); })
+    .observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+/* ---------- parallaxe (mots fantômes) ---------- */
+var plxEls = [];
+document.querySelectorAll("[data-plx]").forEach(function (el) {
+  plxEls.push({ el: el, d: parseFloat(el.getAttribute("data-plx")) || 0, sec: null });
+});
+function plxFrame() {
+  var vc = innerHeight / 2;
+  for (var i = 0; i < plxEls.length; i++) {
+    var o = plxEls[i];
+    if (!o.sec) o.sec = o.el.closest("section, footer") || o.el.parentElement;
+    var r = o.sec.getBoundingClientRect();
+    if (r.bottom < -200 || r.top > innerHeight + 200) continue;
+    var y = (r.top + r.height / 2 - vc) * o.d;
+    o.el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+  }
+}
+if (!reduced && plxEls.length) {
+  var tick = false;
+  addEventListener("scroll", function () {
+    if (tick) return; tick = true;
+    requestAnimationFrame(function () { plxFrame(); tick = false; });
+  }, { passive: true });
+  plxFrame();
+}
+
+/* ---------- révélation au défilement (opacité seule) ---------- */
+var rv = document.querySelectorAll(".rv");
+if (rv.length) {
+  if (reduced) { rv.forEach(function (e) { e.classList.add("on"); }); }
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } });
+    }, { threshold: .14 });
+    rv.forEach(function (e) { io.observe(e); });
+  }
+}
+
+/* ============================================================
+   PARALLAXE — panneaux qui s'ouvrent, section épinglée.
+   Grammaire observée sur caeli-energie.com, réécrite sans librairie.
+   Le défilement inertiel (Lenis chez eux) a été écarté : il fige la page
+   dans un contexte embarqué et prive l'utilisateur du défilement natif.
+   ============================================================ */
+
+/* 1. Panneaux : les grandes surfaces s'ouvrent depuis leur médiane. */
+(function(){
+  var cibles = document.querySelectorAll(".stats, .tool, .cta-band, .pupitre, .mapbox");
+  if (!cibles.length || reduced) return;
+  cibles.forEach(function(el){ el.classList.add("clip-rev"); });
+  var o = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add("on"); o.unobserve(e.target); }
+    });
+  }, { threshold: .18 });
+  cibles.forEach(function(el){ o.observe(el); });
+})();
+
+/* 2. Section épinglée : la progression du scroll dans le conteneur allume
+      les étapes une à une. Nul besoin de calcul si la section est hors champ. */
+(function(){
+  var wrap = document.querySelector(".pin-wrap");
+  if (!wrap || reduced) return;
+  wrap.classList.add("anime");   /* sans JS, aucune etape n'est masquee */
+  var etapes = wrap.querySelectorAll(".step");
+  var barre = wrap.querySelector(".pin-progress i");
+  if (!etapes.length) return;
+
+  function majPin(){
+    var r = wrap.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    /* progression 0→1 sur la portion réellement parcourue */
+    var course = Math.max(1, wrap.offsetHeight - innerHeight);
+    var p = Math.min(1, Math.max(0, -r.top / course));
+    /* on allume avec un peu d'avance pour que la dernière soit atteinte */
+    var atteintes = Math.round(p * (etapes.length + 0.4));
+    for (var i = 0; i < etapes.length; i++){
+      etapes[i].classList.toggle("lit", i < atteintes);
+    }
+    if (barre) barre.style.width = (p * 100).toFixed(1) + "%";
+  }
+  var tk = false;
+  addEventListener("scroll", function(){
+    if (tk) return; tk = true;
+    requestAnimationFrame(function(){ majPin(); tk = false; });
+  }, { passive: true });
+  addEventListener("resize", majPin);
+  majPin();
+})();
+
+
+/* ============================================================
+   FORMULAIRE — envoi vers /api/contact sans rechargement.
+   Sans ce gestionnaire, le navigateur poste nativement et affiche
+   la reponse JSON brute : le message doit rester dans la page.
+   ============================================================ */
+(function () {
+  var f = document.getElementById("devisForm");
+  if (!f) return;
+  var retour = document.getElementById("f-retour");
+  var bouton = document.getElementById("f-envoi");
+  var t0 = document.getElementById("f-t0");
+  if (t0) t0.value = String(Date.now());   /* mesure le temps de remplissage */
+
+  function afficher(texte, ok) {
+    retour.textContent = texte;
+    retour.className = "form-retour " + (ok ? "ok" : "ko");
+    retour.hidden = false;
+  }
+
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var ctx = document.getElementById("f-contexte");
+    if (ctx && window.__pointDeFonctionnement) ctx.value = window.__pointDeFonctionnement;
+
+    bouton.disabled = true;
+    var libelle = bouton.textContent;
+    bouton.textContent = "Envoi en cours…";
+    retour.hidden = true;
+
+    fetch(f.action, { method: "POST", body: new FormData(f) })
+      .then(function (r) {
+        return r.json().catch(function () {
+          return { ok: false, message: "Réponse inattendue du serveur. "
+            + "Appelez-nous au 04 74 43 68 38." };
+        });
+      })
+      .then(function (d) { afficher(d.message, d.ok); if (d.ok) f.reset(); })
+      .catch(function () {
+        afficher("L'envoi a échoué. Écrivez-nous à contact@euroventilatori-france.com "
+          + "ou appelez le 04 74 43 68 38.", false);
+      })
+      .then(function () { bouton.disabled = false; bouton.textContent = libelle; });
+  });
+})();
+
+/* ---------- compteurs des bandeaux de preuve ---------- */
+var fmt = new Intl.NumberFormat("fr-FR");
+var counters = document.querySelectorAll("[data-count]");
+if (counters.length) {
+  var cio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      var end = +e.target.getAttribute("data-count");
+      if (reduced) { e.target.textContent = fmt.format(end); return; }
+      var t0 = performance.now();
+      (function step(now) {
+        var k = Math.min(1, (now - t0) / 1100); k = 1 - Math.pow(1 - k, 3);
+        e.target.textContent = fmt.format(Math.round(end * k));
+        if (k < 1) requestAnimationFrame(step);
+      })(t0);
+    });
+  }, { threshold: .5 });
+  counters.forEach(function (c) { cio.observe(c); });
+}
+})();
