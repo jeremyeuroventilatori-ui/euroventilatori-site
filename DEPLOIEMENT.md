@@ -6,8 +6,13 @@ Le domaine `euroventilatori.fr`, encore sous contrat Solocal/Duda, n'est pas
 touché : il continue de servir l'ancien site.
 
 **Point non négociable : rien n'est indexé à ce stade.** Le verrou est posé par
-`functions/_middleware.js` et ne s'ouvre que lorsque le domaine de production
-sera rattaché au projet.
+`_worker.js` et ne s'ouvre que lorsque le domaine de production sera rattaché
+au projet.
+
+> `_worker.js` fonctionne aussi bien sur **Workers** que sur **Pages** : les
+> deux plateformes exposent la même interface pour servir les fichiers
+> statiques. Le dossier `functions/`, lui, était propre à Pages et restait
+> inerte sur Workers — c'est ce qui avait laissé la préproduction indexable.
 
 Ce que Cloudflare publie n'est pas le dépôt entier, mais le dossier **`dist/`** :
 les scripts de génération et les notes internes — inventaire SEO, analyse des
@@ -48,22 +53,22 @@ Sur [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** �
 
 À faire **avant** de diffuser l'adresse à qui que ce soit.
 
-1. Ouvrir `https://euroventilatori-preprod.pages.dev/robots.txt` :
-   il doit afficher `Disallow: /` — et non le robots.txt de production.
+1. Ouvrir `<votre-adresse>/robots.txt` : il doit afficher `Disallow: /` —
+   et non le robots.txt de production.
 2. Vérifier l'en-tête sur une page. Dans PowerShell :
 
 ```powershell
-(Invoke-WebRequest https://euroventilatori-preprod.pages.dev/ventilateurs).Headers['X-Robots-Tag']
+(Invoke-WebRequest https://euro-prepod.jeremyeuroventilatori.workers.dev/ventilateurs).Headers['X-Robots-Tag']
 ```
 
 La réponse attendue est `noindex, nofollow, noarchive, nosnippet`.
 
 Si ces deux contrôles passent, aucun moteur ne peut indexer la préproduction —
-et cela restera vrai même après la mise en production, l'adresse `.pages.dev`
-n'étant jamais reconnue comme hôte de production.
+et cela restera vrai même après la mise en production : ni `.workers.dev` ni
+`.pages.dev` ne sont reconnues comme hôtes de production.
 
 **Protection supplémentaire recommandée** — **Zero Trust → Access →
-Applications** → *Self-hosted* sur `euroventilatori-preprod.pages.dev`, avec une
+Applications** → *Self-hosted* sur l'adresse de préproduction, avec une
 règle « e-mails autorisés ». Le site devient inaccessible sans authentification :
 ni moteurs, ni concurrents, ni prestataire sortant. Gratuit jusqu'à
 50 utilisateurs. Sans Access, le site reste consultable par qui connaît
@@ -133,12 +138,16 @@ site Duda revient en quelques minutes.
 
 ## Ce que contient `dist/`
 
-Les 38 pages HTML, `assets/`, `_headers`, `_redirects`, `robots.txt`,
-`sitemap.xml`, `llms.txt` et les favicons.
+Les 38 pages HTML, `assets/`, `_worker.js`, `_headers`, `_redirects`,
+`robots.txt`, `sitemap.xml`, `llms.txt` et les favicons.
 
 Volontairement absents : les scripts de génération (`*.py`) et la documentation
 interne (`*.md`). `build_dist.py` refuse de terminer si l'un d'eux s'y glisse.
 
-Les **fonctions** (`functions/_middleware.js` et `functions/api/contact.js`)
-restent à la racine du dépôt : c'est là que Cloudflare Pages les attend, quel
-que soit le dossier de sortie.
+**`_worker.js`** est inclus dans le paquet. Il assure quatre choses : le verrou
+d'indexation selon le nom d'hôte, les redirections 301 des anciennes URL, les
+en-têtes de sécurité et de cache, et la réception du formulaire de contact.
+
+> En mode `_worker.js`, les fichiers `_headers` et `_redirects` ne sont pas
+> appliqués automatiquement : leur contenu est donc repris dans le worker.
+> Ils restent dans le paquet pour un déploiement Pages classique.

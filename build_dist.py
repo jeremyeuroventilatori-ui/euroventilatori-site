@@ -14,8 +14,8 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 DIST = "dist"
 
 # Fichiers à la racine du site publié, en plus des pages HTML.
-RACINE = ["_headers", "_redirects", "robots.txt", "sitemap.xml", "llms.txt",
-          "favicon.svg", "favicon.png", "favicon.ico"]
+RACINE = ["_worker.js", "_headers", "_redirects", "robots.txt", "sitemap.xml",
+          "llms.txt", "favicon.svg", "favicon.png", "favicon.ico"]
 DOSSIERS = ["assets"]
 
 # Jamais publiés : outils de fabrication et documentation interne.
@@ -57,8 +57,8 @@ def construire():
     total = sum(os.path.getsize(os.path.join(r, f))
                 for r, _, fs in os.walk(DIST) for f in fs)
     print("dist/ : %d pages HTML, %.1f Mo" % (pages, total / 1048576))
-    print("Les fonctions restent à la racine du dépôt (functions/), "
-          "où Cloudflare Pages les attend.")
+    print("_worker.js inclus : verrou d'indexation, redirections, en-têtes "
+          "et formulaire, sur Workers comme sur Pages.")
 
 
 if __name__ == "__main__":

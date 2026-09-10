@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Prépare le paquet à téléverser directement sur Cloudflare Pages.
+"""Prépare le paquet à téléverser directement sur Cloudflare.
 
-Différence avec `dist/` : en téléversement direct, Cloudflare ne lit pas le
-dépôt. Le dossier `functions/` doit donc être INCLUS dans le paquet — alors
-qu'en déploiement connecté à Git, il est lu à la racine du dépôt.
+Identique à `dist/` : tout est dans le paquet, y compris `_worker.js`, qui
+fonctionne aussi bien sur Workers que sur Pages.
 
 Produit, à côté du dépôt :
   euroventilatori-cloudflare/       le dossier à glisser sur Cloudflare
@@ -18,9 +17,9 @@ PARENT = os.path.abspath("..")
 NOM = "euroventilatori-cloudflare"
 CIBLE = os.path.join(PARENT, NOM)
 
-RACINE = ["_headers", "_redirects", "robots.txt", "sitemap.xml", "llms.txt",
-          "favicon.svg", "favicon.png", "favicon.ico"]
-DOSSIERS = ["assets", "functions"]
+RACINE = ["_worker.js", "_headers", "_redirects", "robots.txt", "sitemap.xml",
+          "llms.txt", "favicon.svg", "favicon.png", "favicon.ico"]
+DOSSIERS = ["assets"]
 EXCLUS_EXT = (".py", ".md")
 
 
@@ -44,7 +43,6 @@ def construire():
             shutil.copytree(dossier, os.path.join(CIBLE, dossier))
 
     # Garde-fou : aucun outil ni document interne ne doit partir en ligne.
-    # Les fonctions sont en .js : les exclusions ne portent que sur .py et .md.
     fuites = [os.path.join(r, f)
               for r, _, fs in os.walk(CIBLE) for f in fs
               if f.endswith(EXCLUS_EXT)]
@@ -68,9 +66,8 @@ def construire():
 
     total = sum(os.path.getsize(os.path.join(r, f))
                 for r, _, fs in os.walk(CIBLE) for f in fs)
-    fonctions = sum(len(fs) for _, _, fs in os.walk(os.path.join(CIBLE, "functions")))
     print("Paquet : %s" % CIBLE)
-    print("  %d pages HTML, %d fonctions, %.1f Mo" % (pages, fonctions, total / 1048576))
+    print("  %d pages HTML + _worker.js, %.1f Mo" % (pages, total / 1048576))
     print("Archive : %s (%.1f Mo)" % (archive, os.path.getsize(archive) / 1048576))
 
 
