@@ -123,8 +123,14 @@ async function traiterContact(request, env) {
     if (texte(form.get("societe_bis"))) return repondre(true, "Demande envoyée.");
 
     // Délai de remplissage : un envoi instantané n'est pas humain.
+    // On ne conclut que sur un écart plausible. L'horodatage vient du poste du
+    // visiteur et se compare à l'heure du serveur : une horloge en avance donne
+    // un écart négatif. Traiter ce cas comme un robot ferait disparaître
+    // silencieusement la demande d'un client réel — bien pire que de laisser
+    // passer un robot, que Turnstile arrêtera de toute façon.
     const depart = parseInt(form.get("t0") || "0", 10);
-    if (depart && (Date.now() - depart) / 1000 < MINIMUM_SECONDES) {
+    const ecoule = depart ? (Date.now() - depart) / 1000 : null;
+    if (ecoule !== null && ecoule >= 0 && ecoule < MINIMUM_SECONDES) {
       return repondre(true, "Demande envoyée.");
     }
 
