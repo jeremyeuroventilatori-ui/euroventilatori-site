@@ -22,6 +22,22 @@ risques, revue du plan de bascule — restent hors ligne.
 
 ## Étape 1 — Créer le projet
 
+> **Important : choisir Pages, pas Workers.** Un projet Workers « fichiers
+> statiques seuls » n'exécute pas `_worker.js` — il le sert comme un fichier
+> ordinaire. Ni le verrou d'indexation ni le formulaire ne fonctionnent alors.
+> Sur Pages, `_worker.js` est interprété automatiquement (mode avancé).
+
+### Voie A — téléversement direct (le plus simple)
+
+**Workers & Pages** → **Create** → **Pages** → **Upload assets**. Nommer le
+projet, puis déposer le dossier `euroventilatori-cloudflare/` ou son archive.
+Rien d'autre à régler : `_worker.js` est détecté et pris en charge.
+
+Pour chaque mise à jour : `python gen_pages.py && python build_upload.py`, puis
+un nouveau téléversement.
+
+### Voie B — connexion au dépôt Git
+
 Sur [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** →
 **Create** → **Pages** → **Connect to Git**, autoriser l'accès au dépôt
 `euroventilatori-site` et le sélectionner.
