@@ -1548,4 +1548,29 @@ for fname, d in P.items():
         f.write(html)
     print("OK", fname)
 generer_articles()
-print("Terminé :", len(P) + len(ARTICLES), "pages")
+
+
+def restamper(fichier):
+    """Remet l'empreinte des assets à jour dans les pages écrites à la main.
+
+    index.html et 404.html ne passent pas par le gabarit : sans ce passage,
+    leur référence se fige à une ancienne empreinte pendant que le fichier CSS,
+    lui, évolue. Le navigateur sert alors l'ancienne feuille — mise en cache
+    pour un an par `immutable` — et la correction semble ne pas être partie.
+    """
+    import re as _re
+    if not os.path.exists(fichier):
+        return
+    h = io.open(fichier, encoding="utf-8").read()
+    avant = h
+    h = _re.sub(r'(href="/?assets/styles\.css)(\?v=[0-9a-f]+)?"', r'\1?v=%s"' % VCSS, h)
+    h = _re.sub(r'(src="/?assets/site\.js)(\?v=[0-9a-f]+)?"', r'\1?v=%s"' % VJS, h)
+    if h != avant:
+        io.open(fichier, "w", encoding="utf-8").write(h)
+        print("Réestampillé :", fichier)
+
+
+for f in ("index.html", "404.html"):
+    restamper(f)
+
+print("Terminé :", len(P) + len(ARTICLES), "pages  (css %s, js %s)" % (VCSS, VJS))

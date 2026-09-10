@@ -10,11 +10,27 @@ Produit, à côté du dépôt :
 
 Lancer après gen_pages.py :  python build_upload.py
 """
-import io, os, shutil, zipfile
+import io, os, shutil, sys, zipfile
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 PARENT = os.path.abspath("..")
-NOM = "euroventilatori-cloudflare"
+PREPROD = "--preprod" in sys.argv
+NOM = "euroventilatori-preprod" if PREPROD else "euroventilatori-cloudflare"
+
+# Interdiction d'indexation servie par l'hébergeur. Le verrou par nom d'hôte
+# de _worker.js serait plus sûr, mais il suppose que le worker s'exécute :
+# sur un projet « fichiers statiques seuls », il reste inerte.
+ENTETE_NOINDEX = """
+# ⚠️ PRÉPRODUCTION — ce bloc interdit l'indexation de tout le site.
+# Il ne doit JAMAIS figurer dans le paquet de production.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+"""
+
+ROBOTS_PREPROD = """# Préproduction — ne pas indexer.
+User-agent: *
+Disallow: /
+"""
 CIBLE = os.path.join(PARENT, NOM)
 
 RACINE = ["_worker.js", "_headers", "_redirects", "robots.txt", "sitemap.xml",
@@ -42,6 +58,13 @@ def construire():
         if os.path.isdir(dossier):
             shutil.copytree(dossier, os.path.join(CIBLE, dossier))
 
+    if PREPROD:
+        # Deux serrures, comme dans _worker.js : l'en-tête et le robots.txt.
+        with io.open(os.path.join(CIBLE, "_headers"), "a", encoding="utf-8") as f:
+            f.write(ENTETE_NOINDEX)
+        io.open(os.path.join(CIBLE, "robots.txt"), "w",
+                encoding="utf-8").write(ROBOTS_PREPROD)
+
     # Garde-fou : aucun outil ni document interne ne doit partir en ligne.
     fuites = [os.path.join(r, f)
               for r, _, fs in os.walk(CIBLE) for f in fs
@@ -66,8 +89,10 @@ def construire():
 
     total = sum(os.path.getsize(os.path.join(r, f))
                 for r, _, fs in os.walk(CIBLE) for f in fs)
-    print("Paquet : %s" % CIBLE)
+    print("Paquet %s : %s" % ("PRÉPRODUCTION" if PREPROD else "production", CIBLE))
     print("  %d pages HTML + _worker.js, %.1f Mo" % (pages, total / 1048576))
+    if PREPROD:
+        print("  Indexation interdite : X-Robots-Tag dans _headers + robots.txt en Disallow.")
     print("Archive : %s (%.1f Mo)" % (archive, os.path.getsize(archive) / 1048576))
 
 
