@@ -661,3 +661,54 @@ section{ padding:clamp(70px,8vw,116px) 0 }
 .err-404 h1{ font-size:clamp(30px,4.4vw,52px); margin:14px 0 18px }
 .err-404 p{ color:var(--muted); font-size:17px; max-width:56ch }
 .err-404 .cta-row{ margin-top:30px }
+
+/* ==========================================================================
+   EN-TÊTE — centrage vrai de la navigation
+   Ni grid ni flex ne centrent la nav sur le CONTENEUR : ils la centrent dans
+   l'espace résiduel, qui dépend des largeurs du logo et du bloc de droite.
+   Une grille « 1fr auto 1fr » échoue d'ailleurs dès que le logo dépasse la
+   part d'une colonne — c'est le cas sous 1180 px.
+   La nav est donc sortie du flux et ancrée à 50 % de .hd : le centrage est
+   exact par construction, quelles que soient les largeurs latérales. Le
+   rembourrage de .hd est rendu symétrique pour que ce milieu coïncide avec
+   celui de la pilule. Bloc borné au-dessus du point de bascule mobile : en
+   dessous, la nav garde son positionnement de menu déroulant, inchangé.
+   ========================================================================== */
+@media (min-width: 981px){
+  .hd{
+    position:relative;
+    justify-content:space-between;
+    /* Symétrique : le milieu de la pilule devient le vrai milieu. Resserré
+       aux largeurs basses, où chaque pixel compte face au logo. */
+    padding:0 clamp(12px,1.6vw,20px);
+    gap:clamp(10px,1.4vw,20px);
+  }
+
+  nav.main{
+    position:absolute;
+    left:50%;
+    translate:-50% 0;
+    margin:0;                   /* annule le margin-left:auto du mode flex */
+    align-items:center;
+    flex-wrap:nowrap;
+    gap:clamp(0px,0.3vw,4px);
+  }
+  /* Les libellés tiennent sur une ligne : la place se gagne sur le rembourrage
+     et le corps, jamais sur un retour à la ligne. */
+  nav.main a{
+    display:flex;
+    align-items:center;
+    white-space:nowrap;
+    padding:12px clamp(3px,0.8vw,11px);   /* ~44 px de haut : cible confortable */
+    font-size:clamp(12px,1vw,14px);
+    line-height:1.4;
+  }
+
+  /* Sous 1180 px, les sept libellés et le numéro ne tiennent pas ensemble.
+     Le numéro s'efface le premier : il reste dans le pied de page et sur la
+     page Contact, alors qu'un menu tronqué casserait la navigation. */
+  .hd-cta .tel{ display:none }
+}
+@media (min-width: 1181px){
+  .hd-cta .tel{ display:inline-block }
+}
